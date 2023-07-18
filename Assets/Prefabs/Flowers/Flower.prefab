@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 4446035841911728827}
   - component: {fileID: 4446035841911728830}
   - component: {fileID: 8516749431914782850}
+  - component: {fileID: 6538533215876160854}
   m_Layer: 0
   m_Name: Flower
   m_TagString: Flower
@@ -99,6 +100,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   flowerColor: {r: 0, g: 0, b: 0, a: 0}
+  paired: 0
 --- !u!135 &8516749431914782850
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -112,3 +114,15 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 0.32502466
   m_Center: {x: 0.041283656, y: 0, z: 3.2598793e-12}
+--- !u!114 &6538533215876160854
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4446035841911728825}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 88babbc91f64cb64593f134617dffcf7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

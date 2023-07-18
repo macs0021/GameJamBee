@@ -20,7 +20,7 @@ public class LeafGenerator : MonoBehaviour
             leaf.transform.parent = this.gameObject.transform;
 
             // Espera 5 segundos antes de la siguiente iteración
-            yield return new WaitForSeconds(5f);
+            yield return new WaitForSeconds(20f);
         }
     }
 

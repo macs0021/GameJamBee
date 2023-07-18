@@ -5,7 +5,7 @@ using UnityEngine;
 public class Leaf : MonoBehaviour
 {
     public float speed = 25f;  // puedes ajustar la velocidad aquí
-    private float lifeTime = 10f;  // el tiempo después del cual se destruirá la hoja
+    private float lifeTime = 40f;  // el tiempo después del cual se destruirá la hoja
 
     // Start is called before the first frame update
     void Start()
@@ -18,6 +18,6 @@ public class Leaf : MonoBehaviour
     void Update()
     {
         // Mover la hoja hacia abajo a la velocidad especificada
-        transform.position -= new Vector3(0, 1, 0);
+        transform.Translate(Vector3.down * speed * Time.deltaTime);
     }
 }
