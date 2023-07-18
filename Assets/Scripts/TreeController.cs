@@ -25,7 +25,7 @@ public class TreeController : MonoBehaviour
         isBackwardsRotation = false;
     }
 
-    void Update()
+    void FixedUpdate()
     {
         // Change the rotation velocity depending on the flag isBackwardsRotation
         actualRotationVelocity = Mathf.Lerp(actualRotationVelocity, isBackwardsRotation ? -rotationVelocity : rotationVelocity, smoothRotation);
