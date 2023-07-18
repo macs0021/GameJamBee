@@ -4,28 +4,41 @@ using UnityEngine;
 
 public class TreeController : MonoBehaviour
 {
-    public float velocidadRotacion = 10f;
+    [Header("Rotation")]
+    [SerializeField] private float rotationVelocity;
+    [SerializeField] private float smoothRotation;
+    private float actualRotationVelocity;
+    private bool isBackwardsRotation;
+
+    [Header("Branches")]
     public GameObject branchPrefab;
     public int numberOfBranchesPairs = 4;
     public int numberOfFlowerPairs = 2;
     GameObject[] branches;
 
-
+    public bool IsBackwardsRotation { get => isBackwardsRotation; set => isBackwardsRotation = value; }
 
     private void Start()
     {
         GenerateBranches(8);
+        actualRotationVelocity = rotationVelocity;
+        isBackwardsRotation = false;
     }
+
     void Update()
     {
+        // Change the rotation velocity depending on the flag isBackwardsRotation
+        actualRotationVelocity = Mathf.Lerp(actualRotationVelocity, isBackwardsRotation ? -rotationVelocity : rotationVelocity, Time.deltaTime * smoothRotation);
+
         // Rotar el objeto en el eje Y continuamente
-        transform.Rotate(Vector3.up, velocidadRotacion * Time.deltaTime);
+        transform.Rotate(Vector3.up, actualRotationVelocity * Time.deltaTime);
     }
+
     public void GenerateBranches(int numberOfLevels)
     {
         float height = 40;
         float radius = 5;
-        float levelHeight = (height / numberOfLevels)-0.5f;
+        float levelHeight = (height / numberOfLevels) - 0.5f;
         branches = new GameObject[5 * numberOfLevels];
         int branchIndex = 0;
 
