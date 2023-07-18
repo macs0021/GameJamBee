@@ -27,6 +27,7 @@ public class BeeController : MonoBehaviour
     [SerializeField] private Transform rightWingTransform;
 
     [Header("Misc")]
+    [SerializeField] private SpriteRenderer bellySprite;
     public Color seedsColor = Color.white;
     public GameObject collectedFlower;
     public TreeController tree;
@@ -123,19 +124,23 @@ public class BeeController : MonoBehaviour
         //Hay que optimizar esto
         if (other.CompareTag("Flower") && !other.GetComponent<Flower>().paired)
         {
+            // Picked up pollen
             if (seedsColor == Color.white)
             {
                 seedsColor = other.GetComponent<Flower>().flowerColor;
-                //GetComponent<SpriteRenderer>().color = seedsColor;
                 collectedFlower = other.gameObject;
+
+                bellySprite.enabled = true;
+                bellySprite.color = seedsColor;
             }
+            // Remove belly sprite
             if (seedsColor == other.GetComponent<SpriteRenderer>().color && other.gameObject != collectedFlower)
             {
                 collectedFlower.GetComponent<Flower>().paired = true;
                 other.GetComponent<Flower>().paired = true;
                 collectedFlower = null;
                 seedsColor = Color.white;
-                //GetComponent<SpriteRenderer>().color = seedsColor;
+                bellySprite.enabled = false;
             }
         }
     }

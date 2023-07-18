@@ -28,7 +28,7 @@ public class TreeController : MonoBehaviour
     void Update()
     {
         // Change the rotation velocity depending on the flag isBackwardsRotation
-        actualRotationVelocity = Mathf.Lerp(actualRotationVelocity, isBackwardsRotation ? -rotationVelocity : rotationVelocity, Time.deltaTime * smoothRotation);
+        actualRotationVelocity = Mathf.Lerp(actualRotationVelocity, isBackwardsRotation ? -rotationVelocity : rotationVelocity, smoothRotation);
 
         // Rotar el objeto en el eje Y continuamente
         transform.Rotate(Vector3.up, actualRotationVelocity * Time.deltaTime);
