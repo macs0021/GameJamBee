@@ -133,6 +133,7 @@ public class TreeController : MonoBehaviour
         {
             // Generar un nuevo color aleatorio
             Color newColor = new Color(Random.value, Random.value, Random.value);
+            newColor.a = 1;
 
             // Aplicar este color a los dos objetos del par actual
             objects[activeIndices[i]].GetComponent<BranchController>().ChangeFlowerType(newColor);
