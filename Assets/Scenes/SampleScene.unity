@@ -772,14 +772,6 @@ PrefabInstance:
       propertyPath: tree
       value: 
       objectReference: {fileID: 1925950371}
-    - target: {fileID: 1132967558148399466, guid: 39c011c0489a9924cad5bea81a59933e, type: 3}
-      propertyPath: verticalSpeed
-      value: 7
-      objectReference: {fileID: 0}
-    - target: {fileID: 1132967558148399466, guid: 39c011c0489a9924cad5bea81a59933e, type: 3}
-      propertyPath: horizontalSpeed
-      value: 70
-      objectReference: {fileID: 0}
     - target: {fileID: 6620936848317999186, guid: 39c011c0489a9924cad5bea81a59933e, type: 3}
       propertyPath: m_LocalRotation.w
       value: 1
