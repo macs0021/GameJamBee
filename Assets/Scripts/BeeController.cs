@@ -9,10 +9,8 @@ public class BeeController : MonoBehaviour
     [SerializeField] private float horizontalSpeed; // rotation
     [SerializeField] private float verticalSpeed;
     [SerializeField] private float smoothMovement;
-    private Rigidbody rb;
     private Vector2 velocity;
     private float velXSmoothing, velYSmoothing;
-
     private bool canFlipMovement;
 
     [Header("VFX")]
@@ -38,7 +36,6 @@ public class BeeController : MonoBehaviour
 
     private void Awake()
     {
-        rb = GetComponent<Rigidbody>();
         canFlipMovement = true;
         StartWinkAnimationLoop();
     }
@@ -78,6 +75,14 @@ public class BeeController : MonoBehaviour
 
         velocity.x = Mathf.SmoothDamp(velocity.x, input.x, ref velXSmoothing, smoothMovement);
         velocity.y = Mathf.SmoothDamp(velocity.y, input.y, ref velYSmoothing, smoothMovement);
+    }
+
+    private void Move()
+    {
+        transform.Translate(new Vector3(0, velocity.y * verticalSpeed * Time.deltaTime, 0));
+
+        // Rotar el arbol en el eje Y
+        tree.transform.Rotate(Vector3.up, velocity.x * horizontalSpeed * Time.deltaTime);
     }
 
     private void FlipBee(float scaleX)
@@ -125,14 +130,6 @@ public class BeeController : MonoBehaviour
             {
                 DOVirtual.DelayedCall(randomWaitTime, StartWinkAnimationLoop);
             });
-    }
-
-    private void Move()
-    {
-        transform.Translate(new Vector3(0, velocity.y * verticalSpeed * Time.deltaTime, 0));
-
-        // Rotar el arbol en el eje Y
-        tree.transform.Rotate(Vector3.up, velocity.x * horizontalSpeed * Time.deltaTime);
     }
 
     private void OnTriggerEnter(Collider other)
