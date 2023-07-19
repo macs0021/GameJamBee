@@ -381,6 +381,11 @@ MonoBehaviour:
   m_CameraActivatedEvent:
     m_PersistentCalls:
       m_Calls: []
+--- !u!4 &604082092 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 5156916946353391920, guid: 39c011c0489a9924cad5bea81a59933e, type: 3}
+  m_PrefabInstance: {fileID: 1403528534}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1015452314
 GameObject:
   m_ObjectHideFlags: 0
@@ -704,6 +709,18 @@ PrefabInstance:
       propertyPath: moveSpeed
       value: 5
       objectReference: {fileID: 0}
+    - target: {fileID: 911791183619257349, guid: 39c011c0489a9924cad5bea81a59933e, type: 3}
+      propertyPath: beeTransform
+      value: 
+      objectReference: {fileID: 2035707426}
+    - target: {fileID: 911791183619257349, guid: 39c011c0489a9924cad5bea81a59933e, type: 3}
+      propertyPath: visualTransform
+      value: 
+      objectReference: {fileID: 604082092}
+    - target: {fileID: 911791183619257349, guid: 39c011c0489a9924cad5bea81a59933e, type: 3}
+      propertyPath: visualWrapperTransform
+      value: 
+      objectReference: {fileID: 1443416784}
     - target: {fileID: 911791183619257351, guid: 39c011c0489a9924cad5bea81a59933e, type: 3}
       propertyPath: m_Mass
       value: 1
@@ -778,6 +795,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 39c011c0489a9924cad5bea81a59933e, type: 3}
+--- !u!4 &1443416784 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 2902766480878450370, guid: 39c011c0489a9924cad5bea81a59933e, type: 3}
+  m_PrefabInstance: {fileID: 1403528534}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &1511567128 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4252530465144108708, guid: 23b40079200104049a5b61fad667f3ac, type: 3}

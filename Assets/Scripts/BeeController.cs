@@ -18,7 +18,9 @@ public class BeeController : MonoBehaviour
     private Tweener blinkTween;
 
     private Tweener beeTween;
-    [SerializeField] private Transform beeTransform;
+    private Tweener boingTween;
+    [SerializeField] private Transform visualWrapperTransform;
+    [SerializeField] private Transform visualTransform;
 
     private bool isTweening;
     private Tweener leftWingTween;
@@ -43,6 +45,8 @@ public class BeeController : MonoBehaviour
     {
         ProcessInput();
         controller.Move(velocity);
+
+        HandleBoingAnimation();
     }
 
     private void ProcessInput()
@@ -70,8 +74,26 @@ public class BeeController : MonoBehaviour
         if (beeTween == null)
         {
             canFlipMovement = false;
-            beeTween = beeTransform.DOScaleX(scaleX, 0.5f).SetEase(Ease.InOutSine)
+            beeTween = visualTransform.DOScaleX(scaleX, 0.5f).SetEase(Ease.InOutSine)
                 .OnKill(() => { canFlipMovement = true; beeTween = null; });
+        }
+    }
+
+    private void HandleBoingAnimation()
+    {
+        bool hasCollisions = (controller.collisions.left || controller.collisions.right || controller.collisions.up || controller.collisions.down);
+
+        if (hasCollisions && boingTween == null)
+        {
+            // boing boing en x
+            boingTween = visualWrapperTransform.DOScale(0.9f, 0.2f)
+            .SetEase(Ease.OutBack)
+            .SetLoops(2, LoopType.Yoyo);
+        }
+
+        if (!hasCollisions && boingTween != null && !boingTween.active)
+        {
+            boingTween = null;
         }
     }
 
@@ -91,15 +113,6 @@ public class BeeController : MonoBehaviour
         }
     }
 
-    private void StopWingAnimation()
-    {
-        if (isTweening)
-        {
-            leftWingTween.Kill(true);
-            rightWingTween.Kill(true);
-        }
-    }
-
     void StartWinkAnimationLoop()
     {
         float randomWaitTime = UnityEngine.Random.Range(minWaitTimeToBlink, maxWaitTimeToBlink);
@@ -115,7 +128,7 @@ public class BeeController : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Flower") &&
-            other.TryGetComponent(out Flower flower) && 
+            other.TryGetComponent(out Flower flower) &&
             !flower.IsPaired)
         {
             // Picked up pollen
