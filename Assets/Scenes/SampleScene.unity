@@ -716,8 +716,16 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 489820232}
     - target: {fileID: 911791183619257349, guid: 39c011c0489a9924cad5bea81a59933e, type: 3}
+      propertyPath: verticalSpeed
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 911791183619257349, guid: 39c011c0489a9924cad5bea81a59933e, type: 3}
       propertyPath: smoothMovement
-      value: 0.3
+      value: 0.45
+      objectReference: {fileID: 0}
+    - target: {fileID: 911791183619257349, guid: 39c011c0489a9924cad5bea81a59933e, type: 3}
+      propertyPath: horizontalSpeed
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 911791183619257349, guid: 39c011c0489a9924cad5bea81a59933e, type: 3}
       propertyPath: leftWingTransform
@@ -729,10 +737,14 @@ PrefabInstance:
       objectReference: {fileID: 376097258}
     - target: {fileID: 911791183619257351, guid: 39c011c0489a9924cad5bea81a59933e, type: 3}
       propertyPath: m_Mass
-      value: 2
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 911791183619257351, guid: 39c011c0489a9924cad5bea81a59933e, type: 3}
       propertyPath: m_UseGravity
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 911791183619257351, guid: 39c011c0489a9924cad5bea81a59933e, type: 3}
+      propertyPath: m_IsKinematic
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 911791183619257351, guid: 39c011c0489a9924cad5bea81a59933e, type: 3}
@@ -1309,8 +1321,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b38b7aef939d4cf49b16ccacb86a0350, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rotationVelocity: 40
-  smoothRotation: 2
   branchPrefab: {fileID: 4252530465144108715, guid: 23b40079200104049a5b61fad667f3ac, type: 3}
   numberOfBranchesPairs: 50
   numberOfFlowerPairs: 10

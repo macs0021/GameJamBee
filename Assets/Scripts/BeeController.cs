@@ -6,11 +6,12 @@ using DG.Tweening;
 public class BeeController : MonoBehaviour
 {
     [Header("Movement")]
-    [SerializeField] private float moveSpeed;
+    [SerializeField] private float horizontalSpeed; // rotation
+    [SerializeField] private float verticalSpeed;
     [SerializeField] private float smoothMovement;
     private Rigidbody rb;
-    private float verticalVelocity; // this is not Vector2 bcs only moves upwards
-    private float velYSmoothing;
+    private Vector2 velocity;
+    private float velXSmoothing, velYSmoothing;
 
     private bool canFlipMovement;
 
@@ -28,9 +29,9 @@ public class BeeController : MonoBehaviour
 
     [Header("Misc")]
     [SerializeField] private SpriteRenderer bellySprite;
-    public Color seedsColor = Color.white;
-    public Flower collectedFlower;
-    public TreeController tree;
+    [SerializeField] private TreeController tree;
+    private Color seedsColor = Color.white;
+    private Flower collectedFlower;
 
     private void Awake()
     {
@@ -50,24 +51,23 @@ public class BeeController : MonoBehaviour
 
     private void ProcessInput()
     {
-        float verticalInput = Input.GetAxisRaw("Vertical") <= 0.0f ? -1 : 1;
-        float horizontalInput = Input.GetAxisRaw("Horizontal");
+        Vector2 input = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical")).normalized;
 
         if (canFlipMovement)
         {
-            if (horizontalInput < 0.0f)
+            if (input.x < 0.0f)
             {
-                tree.IsBackwardsRotation = true;
+                //tree.IsBackwardsRotation = true;
                 FlipBee(-1);
             }
-            else if (horizontalInput > 0.0f)
+            else if (input.x > 0.0f)
             {
-                tree.IsBackwardsRotation = false;
+                //tree.IsBackwardsRotation = false;
                 FlipBee(1);
             }
         }
 
-        if (verticalInput >= 0.0f)
+        if (input.x != 0.0f || input.y != 0.0f)
         {
             StartWingAnimation();
         }
@@ -76,7 +76,8 @@ public class BeeController : MonoBehaviour
             StopWingAnimation();
         }
 
-        verticalVelocity = Mathf.SmoothDamp(verticalVelocity, verticalInput, ref velYSmoothing, smoothMovement);
+        velocity.x = Mathf.SmoothDamp(velocity.x, input.x, ref velXSmoothing, smoothMovement);
+        velocity.y = Mathf.SmoothDamp(velocity.y, input.y, ref velYSmoothing, smoothMovement);
     }
 
     private void FlipBee(float scaleX)
@@ -96,10 +97,12 @@ public class BeeController : MonoBehaviour
             isTweening = true;
 
             leftWingTween = leftWingTransform.DOScaleY(-1, 0.3f).SetEase(Ease.InOutSine).SetLoops(-1, LoopType.Yoyo)
-            .OnKill(() => leftWingTransform.DOScaleY(1, 0.1f).SetEase(Ease.Linear));
+            .OnKill(() => leftWingTransform.DOScaleY(1, 0.1f).SetEase(Ease.Linear)
+            .OnComplete(() => isTweening = false));
 
             rightWingTween = rightWingTransform.DOScaleY(-1, 0.3f).SetEase(Ease.InOutSine).SetLoops(-1, LoopType.Yoyo)
-                .OnKill(() => rightWingTransform.DOScaleY(1, 0.1f).SetEase(Ease.Linear));
+                .OnKill(() => rightWingTransform.DOScaleY(1, 0.1f).SetEase(Ease.Linear)
+                .OnComplete(() => isTweening = false));
         }
     }
 
@@ -109,14 +112,15 @@ public class BeeController : MonoBehaviour
         {
             leftWingTween.Kill(true);
             rightWingTween.Kill(true);
-
-            isTweening = false;
         }
     }
 
     private void Move()
     {
-        rb.velocity = new Vector3(0, verticalVelocity * moveSpeed);
+        rb.velocity = new Vector2(0, velocity.y * verticalSpeed);
+
+        // Rotar el arbol en el eje Y
+        tree.transform.Rotate(Vector3.up, velocity.x * horizontalSpeed);
     }
 
     private void OnTriggerEnter(Collider other)
