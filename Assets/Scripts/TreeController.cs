@@ -6,13 +6,13 @@ public class TreeController : MonoBehaviour
 {
     [Header("Branches")]
     public GameObject branchPrefab;
-    public int numberOfBranchesPairs = 4;
+    public int numberOfBranchesPairs = 1;
     public int numberOfFlowerPairs = 2;
     GameObject[] branches;
 
     private void Start()
     {
-        GenerateBranches(8);
+        GenerateBranches(11);
     }
 
     public void GenerateBranches(int numberOfLevels)
@@ -20,16 +20,19 @@ public class TreeController : MonoBehaviour
         float height = 40;
         float radius = 5;
         float levelHeight = (height / numberOfLevels) - 0.5f;
-        branches = new GameObject[5 * numberOfLevels];
+        List<GameObject> branchList = new List<GameObject>();
         int branchIndex = 0;
 
         for (int level = 0; level < numberOfLevels; level++)
         {
-            for (int i = 0; i < 5; i++)
+            int branchesPerLevel = Random.Range(4, 6); // Elige un número aleatorio entre 4 y 5
+            float levelRotation = Random.Range(0, 360); // Rotación aleatoria para cada nivel
+
+            for (int i = 0; i < branchesPerLevel; i++)
             {
                 // Determinar la altura y el ángulo de la rama
                 float branchHeight = levelHeight * level;
-                float branchAngle = Mathf.Deg2Rad * ((360 / 5) * i); // Convertir a radianes
+                float branchAngle = Mathf.Deg2Rad * ((360 / branchesPerLevel) * i + levelRotation); // Convertir a radianes y añadir la rotación del nivel
 
                 // Calcula la posición de la rama
                 Vector3 branchPosition = new Vector3(
@@ -40,7 +43,7 @@ public class TreeController : MonoBehaviour
 
                 // Crear una nueva instancia de la rama
                 GameObject newBranch = Instantiate(branchPrefab, transform.position + branchPosition, Quaternion.identity);
-                branches[branchIndex] = newBranch;
+                branchList.Add(newBranch);
                 branchIndex++;
                 newBranch.transform.parent = this.gameObject.transform;
 
@@ -50,11 +53,12 @@ public class TreeController : MonoBehaviour
                 // Ajustar el ángulo en X a 90 grados
                 Vector3 currentRotation = newBranch.transform.rotation.eulerAngles;
                 newBranch.transform.rotation = Quaternion.Euler(90, currentRotation.y, currentRotation.z);
-
-
             }
         }
-        DisableRandomObjects(branches, numberOfBranchesPairs);
+
+        GameObject[] branches = branchList.ToArray(); // Convertir la lista en un arreglo
+
+        //DisableRandomObjects(branches, numberOfBranchesPairs);
         ColorPairs(branches, numberOfFlowerPairs);
     }
     void DisableRandomObjects(GameObject[] gameObjects, int numActiveObjects)

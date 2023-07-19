@@ -1331,7 +1331,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   branchPrefab: {fileID: 4252530465144108715, guid: 23b40079200104049a5b61fad667f3ac, type: 3}
-  numberOfBranchesPairs: 50
+  numberOfBranchesPairs: 30
   numberOfFlowerPairs: 10
 --- !u!4 &2035707426 stripped
 Transform:
