@@ -6,8 +6,6 @@ using DG.Tweening;
 public class BeeController : MonoBehaviour
 {
     [Header("Movement")]
-    [SerializeField] private float horizontalSpeed; // rotation
-    [SerializeField] private float verticalSpeed;
     [SerializeField] private float smoothMovement;
     private Vector2 velocity;
     private float velXSmoothing, velYSmoothing;
@@ -30,20 +28,21 @@ public class BeeController : MonoBehaviour
 
     [Header("Misc")]
     [SerializeField] private SpriteRenderer bellySprite;
-    [SerializeField] private TreeController tree;
-    private Color seedsColor = Color.white;
+    private Controller3D controller;
     private Flower collectedFlower;
 
     private void Awake()
     {
         canFlipMovement = true;
+        controller = GetComponent<Controller3D>();
+        StartWingAnimation();
         StartWinkAnimationLoop();
     }
 
     private void Update()
     {
         ProcessInput();
-        Move();
+        controller.Move(velocity);
     }
 
     private void ProcessInput()
@@ -54,35 +53,16 @@ public class BeeController : MonoBehaviour
         {
             if (input.x < 0.0f)
             {
-                //tree.IsBackwardsRotation = true;
                 FlipBee(-1);
             }
             else if (input.x > 0.0f)
             {
-                //tree.IsBackwardsRotation = false;
                 FlipBee(1);
             }
         }
 
-        if (input.x != 0.0f || input.y != 0.0f)
-        {
-            StartWingAnimation();
-        }
-        else
-        {
-            StopWingAnimation();
-        }
-
         velocity.x = Mathf.SmoothDamp(velocity.x, input.x, ref velXSmoothing, smoothMovement);
         velocity.y = Mathf.SmoothDamp(velocity.y, input.y, ref velYSmoothing, smoothMovement);
-    }
-
-    private void Move()
-    {
-        transform.Translate(new Vector3(0, velocity.y * verticalSpeed * Time.deltaTime, 0));
-
-        // Rotar el arbol en el eje Y
-        tree.transform.Rotate(Vector3.up, velocity.x * horizontalSpeed * Time.deltaTime);
     }
 
     private void FlipBee(float scaleX)
@@ -141,19 +121,16 @@ public class BeeController : MonoBehaviour
             // Picked up pollen
             if (!bellySprite.enabled)
             {
-                seedsColor = flower.GetColor();
                 collectedFlower = flower;
-
                 bellySprite.enabled = true;
-                bellySprite.color = seedsColor;
+                bellySprite.color = flower.GetColor();
             }
             // Remove belly sprite
-            if (seedsColor == flower.GetColor() && flower.gameObject != collectedFlower.gameObject)
+            if (bellySprite.color == flower.GetColor() && flower.gameObject != collectedFlower.gameObject)
             {
                 collectedFlower.IsPaired = true;
                 flower.IsPaired = true;
                 collectedFlower = null;
-
                 bellySprite.enabled = false;
             }
         }
