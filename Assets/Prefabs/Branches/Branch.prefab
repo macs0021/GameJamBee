@@ -45,6 +45,7 @@ GameObject:
   - component: {fileID: 4252530465144108710}
   - component: {fileID: 4252530465144108709}
   - component: {fileID: -4431540730626104855}
+  - component: {fileID: 5534316791923423554}
   m_Layer: 0
   m_Name: Branch
   m_TagString: Untagged
@@ -96,7 +97,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 08ded999b1cb7bc458c2679a5e928ede, type: 2}
+  - {fileID: 2100000, guid: 19c416eb246041e429cfd98a73652b6d, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -145,6 +146,24 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   flowerObj: {fileID: 4252530464572928285}
+--- !u!114 &5534316791923423554
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4252530465144108715}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5fea29bb7c508c244a1f805a5fd3fc4d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  outlineMode: 0
+  outlineColor: {r: 0, g: 0, b: 0, a: 1}
+  outlineWidth: 10
+  precomputeOutline: 0
+  bakeKeys: []
+  bakeValues: []
 --- !u!1001 &483991721305758628
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -158,7 +177,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4446035841911728825, guid: 6b36a6344f335834e99fafcd574a8acd, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4446035841911728828, guid: 6b36a6344f335834e99fafcd574a8acd, type: 3}
       propertyPath: m_RootOrder

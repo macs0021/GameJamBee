@@ -165,9 +165,9 @@ namespace DG.Tweening
 
         #endregion
 
-        #region Outline
+        //#region Outline
 
-        /// <summary>Tweens a Outline's effectColor to the given value.
+        /*/// <summary>Tweens a Outline's effectColor to the given value.
         /// Also stores the Outline as the tween's target so it can be used for filtered operations</summary>
         /// <param name="endValue">The end value to reach</param><param name="duration">The duration of the tween</param>
         public static TweenerCore<Color, Color, ColorOptions> DOColor(this Outline target, Color endValue, float duration)
@@ -195,9 +195,9 @@ namespace DG.Tweening
             TweenerCore<Vector2, Vector2, VectorOptions> t = DOTween.To(() => target.effectDistance, x => target.effectDistance = x, endValue, duration);
             t.SetTarget(target);
             return t;
-        }
+        }*/
 
-        #endregion
+        //#endregion
 
         #region RectTransform
 
