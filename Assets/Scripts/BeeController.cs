@@ -29,7 +29,7 @@ public class BeeController : MonoBehaviour
     [Header("Misc")]
     [SerializeField] private SpriteRenderer bellySprite;
     public Color seedsColor = Color.white;
-    public GameObject collectedFlower;
+    public Flower collectedFlower;
     public TreeController tree;
 
     private void Awake()
@@ -121,23 +121,24 @@ public class BeeController : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        //Hay que optimizar esto
-        if (other.CompareTag("Flower") && !other.GetComponent<Flower>().paired)
+        if (other.CompareTag("Flower") &&
+            other.TryGetComponent(out Flower flower) && 
+            !flower.IsPaired)
         {
             // Picked up pollen
             if (seedsColor == Color.white)
             {
-                seedsColor = other.GetComponent<Flower>().flowerColor;
-                collectedFlower = other.gameObject;
+                seedsColor = flower.FlowerColor;
+                collectedFlower = flower;
 
                 bellySprite.enabled = true;
                 bellySprite.color = seedsColor;
             }
             // Remove belly sprite
-            if (seedsColor == other.GetComponent<SpriteRenderer>().color && other.gameObject != collectedFlower)
+            if (seedsColor == flower.FlowerSprite.color && flower.gameObject != collectedFlower.gameObject)
             {
-                collectedFlower.GetComponent<Flower>().paired = true;
-                other.GetComponent<Flower>().paired = true;
+                collectedFlower.IsPaired = true;
+                flower.IsPaired = true;
                 collectedFlower = null;
                 seedsColor = Color.white;
                 bellySprite.enabled = false;

@@ -578,11 +578,6 @@ Transform:
   m_Father: {fileID: 1925950370}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!4 &1185528025 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 5156916946353391920, guid: 39c011c0489a9924cad5bea81a59933e, type: 3}
-  m_PrefabInstance: {fileID: 1403528534}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &1325445996 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6620936848317999186, guid: 39c011c0489a9924cad5bea81a59933e, type: 3}

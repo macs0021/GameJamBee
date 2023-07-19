@@ -2,13 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Flower : MonoBehaviour
+public class Flower: MonoBehaviour
 {
-    public Color flowerColor;
-    public bool paired = false;
+    [SerializeField] private SpriteRenderer flowerSprite;
+    private Color flowerColor;
+    private bool isPaired = false;
 
-    private void Update()
-    {
-       
-    }
+    public Color FlowerColor { get => flowerColor; set => flowerColor = value; }
+    public bool IsPaired { get => isPaired; set => isPaired = value; }
+    public SpriteRenderer FlowerSprite { get => flowerSprite; set => flowerSprite = value; }
 }
