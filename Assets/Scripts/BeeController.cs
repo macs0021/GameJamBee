@@ -16,14 +16,17 @@ public class BeeController : MonoBehaviour
     private bool canFlipMovement;
 
     [Header("VFX")]
-    private Tweener beeTween;
+    [SerializeField] private float minWaitTimeToBlink = 1.0f;
+    [SerializeField] private float maxWaitTimeToBlink = 5.0f;
+    [SerializeField] private Transform eyesTransform;
+    private Tweener blinkTween;
 
+    private Tweener beeTween;
     [SerializeField] private Transform beeTransform;
 
     private bool isTweening;
     private Tweener leftWingTween;
     private Tweener rightWingTween;
-
     [SerializeField] private Transform leftWingTransform;
     [SerializeField] private Transform rightWingTransform;
 
@@ -37,15 +40,12 @@ public class BeeController : MonoBehaviour
     {
         rb = GetComponent<Rigidbody>();
         canFlipMovement = true;
+        StartWinkAnimationLoop();
     }
 
     private void Update()
     {
         ProcessInput();
-    }
-
-    private void FixedUpdate()
-    {
         Move();
     }
 
@@ -115,12 +115,24 @@ public class BeeController : MonoBehaviour
         }
     }
 
+    void StartWinkAnimationLoop()
+    {
+        float randomWaitTime = UnityEngine.Random.Range(minWaitTimeToBlink, maxWaitTimeToBlink);
+        blinkTween = eyesTransform.DOScaleY(0.1f, 0.2f)
+            .SetEase(Ease.InOutSine)
+            .SetLoops(2, LoopType.Yoyo)
+            .OnComplete(() =>
+            {
+                DOVirtual.DelayedCall(randomWaitTime, StartWinkAnimationLoop);
+            });
+    }
+
     private void Move()
     {
-        rb.velocity = new Vector2(0, velocity.y * verticalSpeed);
+        transform.Translate(new Vector3(0, velocity.y * verticalSpeed * Time.deltaTime, 0));
 
         // Rotar el arbol en el eje Y
-        tree.transform.Rotate(Vector3.up, velocity.x * horizontalSpeed);
+        tree.transform.Rotate(Vector3.up, velocity.x * horizontalSpeed * Time.deltaTime);
     }
 
     private void OnTriggerEnter(Collider other)

@@ -18,6 +18,8 @@ public class FacingCamera : MonoBehaviour
         lookDirection.y = 0f;
         lookDirection.z = 0f;
 
+        if (lookDirection == Vector3.zero) return;
+
         // Calcular la rotación deseada hacia la cámara en el eje X
         Quaternion targetRotation = Quaternion.LookRotation(lookDirection, Vector3.up);
 

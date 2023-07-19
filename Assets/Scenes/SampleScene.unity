@@ -716,8 +716,12 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 489820232}
     - target: {fileID: 911791183619257349, guid: 39c011c0489a9924cad5bea81a59933e, type: 3}
+      propertyPath: eyesTransform
+      value: 
+      objectReference: {fileID: 1925147730}
+    - target: {fileID: 911791183619257349, guid: 39c011c0489a9924cad5bea81a59933e, type: 3}
       propertyPath: verticalSpeed
-      value: 8
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 911791183619257349, guid: 39c011c0489a9924cad5bea81a59933e, type: 3}
       propertyPath: smoothMovement
@@ -725,7 +729,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 911791183619257349, guid: 39c011c0489a9924cad5bea81a59933e, type: 3}
       propertyPath: horizontalSpeed
-      value: 2
+      value: 70
       objectReference: {fileID: 0}
     - target: {fileID: 911791183619257349, guid: 39c011c0489a9924cad5bea81a59933e, type: 3}
       propertyPath: leftWingTransform
@@ -737,15 +741,15 @@ PrefabInstance:
       objectReference: {fileID: 376097258}
     - target: {fileID: 911791183619257351, guid: 39c011c0489a9924cad5bea81a59933e, type: 3}
       propertyPath: m_Mass
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 911791183619257351, guid: 39c011c0489a9924cad5bea81a59933e, type: 3}
-      propertyPath: m_UseGravity
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 911791183619257351, guid: 39c011c0489a9924cad5bea81a59933e, type: 3}
-      propertyPath: m_IsKinematic
+      propertyPath: m_UseGravity
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 911791183619257351, guid: 39c011c0489a9924cad5bea81a59933e, type: 3}
+      propertyPath: m_IsKinematic
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 911791183619257351, guid: 39c011c0489a9924cad5bea81a59933e, type: 3}
       propertyPath: m_CollisionDetection
@@ -1274,6 +1278,11 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &1925147730 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 302865016553511662, guid: 39c011c0489a9924cad5bea81a59933e, type: 3}
+  m_PrefabInstance: {fileID: 1403528534}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1925950369
 GameObject:
   m_ObjectHideFlags: 0
