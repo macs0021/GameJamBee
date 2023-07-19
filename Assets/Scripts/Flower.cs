@@ -4,11 +4,34 @@ using UnityEngine;
 
 public class Flower: MonoBehaviour
 {
+    [Header("Data")]
+    [SerializeField] private FlowerListSO flowerList;
+
+    [Header("Sprite Renderers")]
     [SerializeField] private SpriteRenderer flowerSprite;
-    private Color flowerColor;
+    [SerializeField] private SpriteRenderer stemSprite;
+
     private bool isPaired = false;
 
-    public Color FlowerColor { get => flowerColor; set => flowerColor = value; }
+    private void Awake()
+    {
+        FlowerVisual flowerVisual = flowerList.GetRandomFlowerVisual();
+
+        flowerSprite.sprite = flowerVisual.flowerSprite;
+        stemSprite.sprite = flowerVisual.stemSprite;
+
+        flowerSprite.transform.localPosition = flowerVisual.flowerPosition;
+    }
+
+    public Color GetColor()
+    {
+        return flowerSprite.color;
+    }
+
+    public void SetColor(Color color)
+    {
+        flowerSprite.color = color;
+    }
+
     public bool IsPaired { get => isPaired; set => isPaired = value; }
-    public SpriteRenderer FlowerSprite { get => flowerSprite; set => flowerSprite = value; }
 }

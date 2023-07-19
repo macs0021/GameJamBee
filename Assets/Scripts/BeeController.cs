@@ -126,21 +126,21 @@ public class BeeController : MonoBehaviour
             !flower.IsPaired)
         {
             // Picked up pollen
-            if (seedsColor == Color.white)
+            if (!bellySprite.enabled)
             {
-                seedsColor = flower.FlowerColor;
+                seedsColor = flower.GetColor();
                 collectedFlower = flower;
 
                 bellySprite.enabled = true;
                 bellySprite.color = seedsColor;
             }
             // Remove belly sprite
-            if (seedsColor == flower.FlowerSprite.color && flower.gameObject != collectedFlower.gameObject)
+            if (seedsColor == flower.GetColor() && flower.gameObject != collectedFlower.gameObject)
             {
                 collectedFlower.IsPaired = true;
                 flower.IsPaired = true;
                 collectedFlower = null;
-                seedsColor = Color.white;
+
                 bellySprite.enabled = false;
             }
         }
