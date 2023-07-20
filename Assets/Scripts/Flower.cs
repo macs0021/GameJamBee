@@ -17,8 +17,8 @@ public class Flower: MonoBehaviour
     {
         FlowerVisual flowerVisual = flowerList.GetRandomFlowerVisual();
 
-        flowerSprite.sprite = flowerVisual.flowerSprite;
-        stemSprite.sprite = flowerVisual.stemSprite;
+        flowerSprite.GetComponent<RedrawAnimation>().Sprites = flowerVisual.flowerSprites;
+        stemSprite.GetComponent<RedrawAnimation>().Sprites = flowerVisual.stemSprites;
 
         flowerSprite.transform.localPosition = flowerVisual.flowerPosition;
     }

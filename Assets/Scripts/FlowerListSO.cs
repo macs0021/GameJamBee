@@ -5,8 +5,8 @@ using UnityEngine;
 [Serializable]
 public struct FlowerVisual
 {
-    public Sprite flowerSprite;
-    public Sprite stemSprite;
+    public List<Sprite> flowerSprites;
+    public List<Sprite> stemSprites;
 
     public Vector3 flowerPosition;
 }

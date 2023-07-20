@@ -1311,6 +1311,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b38b7aef939d4cf49b16ccacb86a0350, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  colors: {fileID: 11400000, guid: 47c9304370c276d428967803e54470aa, type: 2}
   branchPrefab: {fileID: 4252530465144108715, guid: 23b40079200104049a5b61fad667f3ac, type: 3}
   numberOfBranchesPairs: 30
   numberOfFlowerPairs: 10

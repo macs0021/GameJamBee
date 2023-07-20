@@ -52,7 +52,8 @@ MonoBehaviour:
   minWaitTimeToBlink: 1
   maxWaitTimeToBlink: 5
   eyesTransform: {fileID: 302865016553511662}
-  beeTransform: {fileID: 5156916946353391920}
+  visualWrapperTransform: {fileID: 0}
+  visualTransform: {fileID: 0}
   leftWingTransform: {fileID: 6620936848317999186}
   rightWingTransform: {fileID: 1183725125954757264}
   bellySprite: {fileID: 194208982355805236}
@@ -115,6 +116,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6620936848317999186}
   - component: {fileID: 978528461022801869}
+  - component: {fileID: 7740792335389403127}
   m_Layer: 0
   m_Name: Left Wing
   m_TagString: Untagged
@@ -189,6 +191,22 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &7740792335389403127
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1701772132427590079}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f71c7bf0c14a194da38ffc2740f3835, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sprites:
+  - {fileID: 21300000, guid: f5db37f0f174eba45a72e13fc63afd36, type: 3}
+  - {fileID: 21300000, guid: c496de0d5dc684a4da8f55265b6b829d, type: 3}
+  redrawInterval: 0.2
 --- !u!1 &4001182625126169828
 GameObject:
   m_ObjectHideFlags: 0
@@ -231,6 +249,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2728619258684086615}
   - component: {fileID: 3273550761393674991}
+  - component: {fileID: 8239067991681348600}
   m_Layer: 0
   m_Name: Sting
   m_TagString: Untagged
@@ -305,6 +324,22 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &8239067991681348600
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4898951892726078041}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f71c7bf0c14a194da38ffc2740f3835, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sprites:
+  - {fileID: 21300000, guid: 2228ab78801fb3149926cb0af6e674e6, type: 3}
+  - {fileID: 21300000, guid: 54edbb44ed8c2604d9ddcfda9b61cb05, type: 3}
+  redrawInterval: 0.2
 --- !u!1 &5098601768509860613
 GameObject:
   m_ObjectHideFlags: 0
@@ -315,6 +350,7 @@ GameObject:
   m_Component:
   - component: {fileID: 302865016553511662}
   - component: {fileID: 1974361599874682748}
+  - component: {fileID: 8796022606091823454}
   m_Layer: 0
   m_Name: Eyes
   m_TagString: Untagged
@@ -389,6 +425,22 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &8796022606091823454
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5098601768509860613}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f71c7bf0c14a194da38ffc2740f3835, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sprites:
+  - {fileID: 21300000, guid: 325e90333e879b14d94900f7c28bb8bf, type: 3}
+  - {fileID: 21300000, guid: 55e82308f6ea7674cb9cac7e116fe90e, type: 3}
+  redrawInterval: 0.2
 --- !u!1 &5850993479001551024
 GameObject:
   m_ObjectHideFlags: 0
@@ -399,6 +451,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5156916946353391920}
   - component: {fileID: 1628704477680920244}
+  - component: {fileID: 2186120414891125913}
   m_Layer: 0
   m_Name: Visual
   m_TagString: Untagged
@@ -478,6 +531,22 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &2186120414891125913
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5850993479001551024}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f71c7bf0c14a194da38ffc2740f3835, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sprites:
+  - {fileID: 21300000, guid: 4b2f41a1abde2394ca1a4cbfda1681d7, type: 3}
+  - {fileID: 21300000, guid: 52c9d6a53b851704a9dd62f7c495f93c, type: 3}
+  redrawInterval: 0.2
 --- !u!1 &7819821590422876374
 GameObject:
   m_ObjectHideFlags: 0
@@ -488,6 +557,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1183725125954757264}
   - component: {fileID: 4344615465375492256}
+  - component: {fileID: 2020985875308274040}
   m_Layer: 0
   m_Name: Right Wing
   m_TagString: Untagged
@@ -562,6 +632,22 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &2020985875308274040
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7819821590422876374}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f71c7bf0c14a194da38ffc2740f3835, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sprites:
+  - {fileID: 21300000, guid: f5db37f0f174eba45a72e13fc63afd36, type: 3}
+  - {fileID: 21300000, guid: c496de0d5dc684a4da8f55265b6b829d, type: 3}
+  redrawInterval: 0.2
 --- !u!1 &8430512113676475194
 GameObject:
   m_ObjectHideFlags: 0
@@ -572,6 +658,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1739569402674106518}
   - component: {fileID: 194208982355805236}
+  - component: {fileID: 2610185518964468361}
   m_Layer: 0
   m_Name: Belly
   m_TagString: Untagged
@@ -646,3 +733,19 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &2610185518964468361
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8430512113676475194}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f71c7bf0c14a194da38ffc2740f3835, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sprites:
+  - {fileID: 21300000, guid: a36ffaef72cac38438f83aa6b15c0f19, type: 3}
+  - {fileID: 21300000, guid: ba304d416de3533458931f7625c2f95c, type: 3}
+  redrawInterval: 0.2
