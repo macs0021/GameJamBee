@@ -117,7 +117,6 @@ GameObject:
   m_Component:
   - component: {fileID: 6620936848317999186}
   - component: {fileID: 978528461022801869}
-  - component: {fileID: 7740792335389403127}
   m_Layer: 0
   m_Name: Left Wing
   m_TagString: Untagged
@@ -192,22 +191,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &7740792335389403127
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1701772132427590079}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5f71c7bf0c14a194da38ffc2740f3835, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  sprites:
-  - {fileID: 21300000, guid: f5db37f0f174eba45a72e13fc63afd36, type: 3}
-  - {fileID: 21300000, guid: c496de0d5dc684a4da8f55265b6b829d, type: 3}
-  redrawInterval: 0.2
 --- !u!1 &2360067459059082087
 GameObject:
   m_ObjectHideFlags: 0
@@ -233,14 +216,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2360067459059082087}
-  m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
+  m_LocalRotation: {x: 0.9961947, y: -0, z: -0, w: -0.08715578}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1739569402674106518}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 190, y: 0, z: 0}
 --- !u!198 &4632196216671123807
 ParticleSystem:
   m_ObjectHideFlags: 0
@@ -493,7 +476,7 @@ ParticleSystem:
     startSize:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 0.1
+      scalar: 0.2
       minScalar: 1
       maxCurve:
         serializedVersion: 2
@@ -651,7 +634,7 @@ ParticleSystem:
         m_RotationOrder: 4
     startRotationX:
       serializedVersion: 2
-      minMaxState: 0
+      minMaxState: 3
       scalar: 0
       minScalar: 0
       maxCurve:
@@ -704,7 +687,7 @@ ParticleSystem:
         m_RotationOrder: 4
     startRotationY:
       serializedVersion: 2
-      minMaxState: 0
+      minMaxState: 3
       scalar: 0
       minScalar: 0
       maxCurve:
@@ -757,8 +740,8 @@ ParticleSystem:
         m_RotationOrder: 4
     startRotation:
       serializedVersion: 2
-      minMaxState: 0
-      scalar: 0
+      minMaxState: 3
+      scalar: 1.9498818
       minScalar: 0
       maxCurve:
         serializedVersion: 2
@@ -869,7 +852,7 @@ ParticleSystem:
   ShapeModule:
     serializedVersion: 6
     enabled: 1
-    type: 4
+    type: 12
     angle: 1
     length: 5
     boxThickness: {x: 0, y: 0, z: 0}
@@ -956,7 +939,7 @@ ParticleSystem:
     sphericalDirectionAmount: 0
     randomPositionAmount: 0
     radius:
-      value: 0.37
+      value: 0.3
       mode: 0
       spread: 0
       speed:
@@ -1571,8 +1554,8 @@ ParticleSystem:
         m_NumAlphaKeys: 2
   UVModule:
     serializedVersion: 2
-    enabled: 0
-    mode: 0
+    enabled: 1
+    mode: 1
     timeMode: 0
     fps: 30
     frameOverTime:
@@ -1690,7 +1673,8 @@ ParticleSystem:
     uvChannelMask: -1
     rowMode: 1
     sprites:
-    - sprite: {fileID: 0}
+    - sprite: {fileID: 1907626478, guid: 10d9d929b6f83904b9a2a5f6e88d467f, type: 3}
+    - sprite: {fileID: -1841876645, guid: 10d9d929b6f83904b9a2a5f6e88d467f, type: 3}
     flipU: 0
     flipV: 0
   VelocityModule:
@@ -5370,7 +5354,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1183725125954757264}
   - component: {fileID: 4344615465375492256}
-  - component: {fileID: 2020985875308274040}
   m_Layer: 0
   m_Name: Right Wing
   m_TagString: Untagged
@@ -5445,22 +5428,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &2020985875308274040
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7819821590422876374}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5f71c7bf0c14a194da38ffc2740f3835, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  sprites:
-  - {fileID: 21300000, guid: f5db37f0f174eba45a72e13fc63afd36, type: 3}
-  - {fileID: 21300000, guid: c496de0d5dc684a4da8f55265b6b829d, type: 3}
-  redrawInterval: 0.2
 --- !u!1 &8430512113676475194
 GameObject:
   m_ObjectHideFlags: 0
