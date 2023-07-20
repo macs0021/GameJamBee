@@ -19,6 +19,7 @@ public class BeeController : MonoBehaviour
     [SerializeField] private float minWaitTimeToBlink = 1.0f;
     [SerializeField] private float maxWaitTimeToBlink = 5.0f;
     [SerializeField] private Transform eyesTransform;
+    [SerializeField] private ParticleSystem droppingPolen;
     private Tweener blinkTween;
 
     private Tweener beeTween;
@@ -41,6 +42,7 @@ public class BeeController : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         canFlipMovement = true;
         StartWinkAnimationLoop();
+        droppingPolen.Stop();
     }
 
     private void Update()
@@ -149,6 +151,10 @@ public class BeeController : MonoBehaviour
 
                 bellySprite.enabled = true;
                 bellySprite.color = seedsColor;
+                droppingPolen.Play();
+                var mainModule = droppingPolen.main;
+                mainModule.startColor = new ParticleSystem.MinMaxGradient(seedsColor);
+                //droppingPolen.Emit(1);
             }
             // Remove belly sprite
             if (seedsColor == flower.GetColor() && flower.gameObject != collectedFlower.gameObject)
@@ -156,6 +162,7 @@ public class BeeController : MonoBehaviour
                 collectedFlower.IsPaired = true;
                 flower.IsPaired = true;
                 collectedFlower = null;
+                droppingPolen.Stop();
 
                 bellySprite.enabled = false;
             }
