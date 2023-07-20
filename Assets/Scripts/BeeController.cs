@@ -6,13 +6,9 @@ using DG.Tweening;
 public class BeeController : MonoBehaviour
 {
     [Header("Movement")]
-    [SerializeField] private float horizontalSpeed; // rotation
-    [SerializeField] private float verticalSpeed;
     [SerializeField] private float smoothMovement;
-    private Rigidbody rb;
     private Vector2 velocity;
     private float velXSmoothing, velYSmoothing;
-
     private bool canFlipMovement;
 
     [Header("VFX")]
@@ -23,7 +19,9 @@ public class BeeController : MonoBehaviour
     private Tweener blinkTween;
 
     private Tweener beeTween;
-    [SerializeField] private Transform beeTransform;
+    private Tweener boingTween;
+    [SerializeField] private Transform visualWrapperTransform;
+    [SerializeField] private Transform visualTransform;
 
     private bool isTweening;
     private Tweener leftWingTween;
@@ -33,14 +31,14 @@ public class BeeController : MonoBehaviour
 
     [Header("Misc")]
     [SerializeField] private SpriteRenderer bellySprite;
-    [SerializeField] private TreeController tree;
-    private Color seedsColor = Color.white;
+    private Controller3D controller;
     private Flower collectedFlower;
 
     private void Awake()
     {
-        rb = GetComponent<Rigidbody>();
         canFlipMovement = true;
+        controller = GetComponent<Controller3D>();
+        StartWingAnimation();
         StartWinkAnimationLoop();
         droppingPolen.Stop();
     }
@@ -48,7 +46,9 @@ public class BeeController : MonoBehaviour
     private void Update()
     {
         ProcessInput();
-        Move();
+        controller.Move(velocity);
+
+        HandleBoingAnimation();
     }
 
     private void ProcessInput()
@@ -59,23 +59,12 @@ public class BeeController : MonoBehaviour
         {
             if (input.x < 0.0f)
             {
-                //tree.IsBackwardsRotation = true;
                 FlipBee(-1);
             }
             else if (input.x > 0.0f)
             {
-                //tree.IsBackwardsRotation = false;
                 FlipBee(1);
             }
-        }
-
-        if (input.x != 0.0f || input.y != 0.0f)
-        {
-            StartWingAnimation();
-        }
-        else
-        {
-            StopWingAnimation();
         }
 
         velocity.x = Mathf.SmoothDamp(velocity.x, input.x, ref velXSmoothing, smoothMovement);
@@ -87,8 +76,26 @@ public class BeeController : MonoBehaviour
         if (beeTween == null)
         {
             canFlipMovement = false;
-            beeTween = beeTransform.DOScaleX(scaleX, 0.5f).SetEase(Ease.InOutSine)
+            beeTween = visualTransform.DOScaleX(scaleX, 0.5f).SetEase(Ease.InOutSine)
                 .OnKill(() => { canFlipMovement = true; beeTween = null; });
+        }
+    }
+
+    private void HandleBoingAnimation()
+    {
+        bool hasCollisions = (controller.collisions.left || controller.collisions.right || controller.collisions.up || controller.collisions.down);
+
+        if (hasCollisions && boingTween == null)
+        {
+            // boing boing en x
+            boingTween = visualWrapperTransform.DOScale(0.9f, 0.2f)
+            .SetEase(Ease.OutBack)
+            .SetLoops(2, LoopType.Yoyo);
+        }
+
+        if (!hasCollisions && boingTween != null && !boingTween.active)
+        {
+            boingTween = null;
         }
     }
 
@@ -108,15 +115,6 @@ public class BeeController : MonoBehaviour
         }
     }
 
-    private void StopWingAnimation()
-    {
-        if (isTweening)
-        {
-            leftWingTween.Kill(true);
-            rightWingTween.Kill(true);
-        }
-    }
-
     void StartWinkAnimationLoop()
     {
         float randomWaitTime = UnityEngine.Random.Range(minWaitTimeToBlink, maxWaitTimeToBlink);
@@ -129,35 +127,25 @@ public class BeeController : MonoBehaviour
             });
     }
 
-    private void Move()
-    {
-        transform.Translate(new Vector3(0, velocity.y * verticalSpeed * Time.deltaTime, 0));
-
-        // Rotar el arbol en el eje Y
-        tree.transform.Rotate(Vector3.up, velocity.x * horizontalSpeed * Time.deltaTime);
-    }
-
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Flower") &&
-            other.TryGetComponent(out Flower flower) && 
+            other.TryGetComponent(out Flower flower) &&
             !flower.IsPaired)
         {
             // Picked up pollen
             if (!bellySprite.enabled)
             {
-                seedsColor = flower.GetColor();
                 collectedFlower = flower;
-
                 bellySprite.enabled = true;
-                bellySprite.color = seedsColor;
+                bellySprite.color = flower.GetColor();
                 droppingPolen.Play();
                 var mainModule = droppingPolen.main;
-                mainModule.startColor = new ParticleSystem.MinMaxGradient(seedsColor);
+                mainModule.startColor = new ParticleSystem.MinMaxGradient(flower.GetColor());
                 //droppingPolen.Emit(1);
             }
             // Remove belly sprite
-            if (seedsColor == flower.GetColor() && flower.gameObject != collectedFlower.gameObject)
+            if (bellySprite.color == flower.GetColor() && flower.gameObject != collectedFlower.gameObject)
             {
                 collectedFlower.IsPaired = true;
                 flower.IsPaired = true;

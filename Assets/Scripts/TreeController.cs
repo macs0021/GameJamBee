@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class TreeController : MonoBehaviour
 {
+    [Header("Data")]
+    [SerializeField] private FlowerColorsSO colors;
+
     [Header("Branches")]
     public GameObject branchPrefab;
     public int numberOfBranchesPairs = 1;
@@ -130,8 +133,7 @@ public class TreeController : MonoBehaviour
         for (int i = 0; i < numPairs * 2; i += 2)
         {
             // Generar un nuevo color aleatorio
-            Color newColor = new Color(Random.value, Random.value, Random.value);
-            newColor.a = 1;
+            Color newColor = colors.GetColor();
 
             // Aplicar este color a los dos objetos del par actual
             objects[activeIndices[i]].GetComponent<BranchController>().ChangeFlowerType(newColor);

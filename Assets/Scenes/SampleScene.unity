@@ -262,16 +262,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 17.745, y: -1.129, z: 10.084}
---- !u!4 &376097258 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 1183725125954757264, guid: 39c011c0489a9924cad5bea81a59933e, type: 3}
-  m_PrefabInstance: {fileID: 1403528534}
-  m_PrefabAsset: {fileID: 0}
---- !u!4 &489820232 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 5156916946353391920, guid: 39c011c0489a9924cad5bea81a59933e, type: 3}
-  m_PrefabInstance: {fileID: 1403528534}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -391,6 +381,11 @@ MonoBehaviour:
   m_CameraActivatedEvent:
     m_PersistentCalls:
       m_Calls: []
+--- !u!4 &604082092 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 5156916946353391920, guid: 39c011c0489a9924cad5bea81a59933e, type: 3}
+  m_PrefabInstance: {fileID: 1403528534}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1015452314
 GameObject:
   m_ObjectHideFlags: 0
@@ -479,7 +474,7 @@ MonoBehaviour:
   m_BoundingVolume: {fileID: 1679414392}
   m_BoundingShape2D: {fileID: 0}
   m_ConfineScreenEdges: 1
-  m_Damping: 0
+  m_Damping: 1
 --- !u!1 &1161219332
 GameObject:
   m_ObjectHideFlags: 0
@@ -687,11 +682,6 @@ MonoBehaviour:
     - {x: -0.5720614, y: 0.70710677, z: 0.41562694}
     - {x: -0.6724985, y: 0.70710677, z: 0.21850798}
     - {x: -0.8944272, y: 0.4472136, z: 0}
---- !u!4 &1325445996 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 6620936848317999186, guid: 39c011c0489a9924cad5bea81a59933e, type: 3}
-  m_PrefabInstance: {fileID: 1403528534}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1403528534
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -699,6 +689,18 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 4034247479617194, guid: 39c011c0489a9924cad5bea81a59933e, type: 3}
+      propertyPath: tree
+      value: 
+      objectReference: {fileID: 1925950371}
+    - target: {fileID: 4034247479617194, guid: 39c011c0489a9924cad5bea81a59933e, type: 3}
+      propertyPath: verticalSpeed
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 4034247479617194, guid: 39c011c0489a9924cad5bea81a59933e, type: 3}
+      propertyPath: horizontalSpeed
+      value: 70
+      objectReference: {fileID: 0}
     - target: {fileID: 911791183619257349, guid: 39c011c0489a9924cad5bea81a59933e, type: 3}
       propertyPath: tree
       value: 
@@ -708,37 +710,17 @@ PrefabInstance:
       value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 911791183619257349, guid: 39c011c0489a9924cad5bea81a59933e, type: 3}
-      propertyPath: bellySprite
-      value: 
-      objectReference: {fileID: 1403528535}
-    - target: {fileID: 911791183619257349, guid: 39c011c0489a9924cad5bea81a59933e, type: 3}
       propertyPath: beeTransform
       value: 
-      objectReference: {fileID: 489820232}
+      objectReference: {fileID: 2035707426}
     - target: {fileID: 911791183619257349, guid: 39c011c0489a9924cad5bea81a59933e, type: 3}
-      propertyPath: eyesTransform
+      propertyPath: visualTransform
       value: 
-      objectReference: {fileID: 1925147730}
+      objectReference: {fileID: 604082092}
     - target: {fileID: 911791183619257349, guid: 39c011c0489a9924cad5bea81a59933e, type: 3}
-      propertyPath: verticalSpeed
-      value: 7
-      objectReference: {fileID: 0}
-    - target: {fileID: 911791183619257349, guid: 39c011c0489a9924cad5bea81a59933e, type: 3}
-      propertyPath: smoothMovement
-      value: 0.45
-      objectReference: {fileID: 0}
-    - target: {fileID: 911791183619257349, guid: 39c011c0489a9924cad5bea81a59933e, type: 3}
-      propertyPath: horizontalSpeed
-      value: 70
-      objectReference: {fileID: 0}
-    - target: {fileID: 911791183619257349, guid: 39c011c0489a9924cad5bea81a59933e, type: 3}
-      propertyPath: leftWingTransform
+      propertyPath: visualWrapperTransform
       value: 
-      objectReference: {fileID: 1325445996}
-    - target: {fileID: 911791183619257349, guid: 39c011c0489a9924cad5bea81a59933e, type: 3}
-      propertyPath: rightWingTransform
-      value: 
-      objectReference: {fileID: 376097258}
+      objectReference: {fileID: 1443416784}
     - target: {fileID: 911791183619257351, guid: 39c011c0489a9924cad5bea81a59933e, type: 3}
       propertyPath: m_Mass
       value: 1
@@ -803,15 +785,19 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1132967558148399466, guid: 39c011c0489a9924cad5bea81a59933e, type: 3}
+      propertyPath: tree
+      value: 
+      objectReference: {fileID: 1925950371}
     - target: {fileID: 6620936848317999186, guid: 39c011c0489a9924cad5bea81a59933e, type: 3}
       propertyPath: m_LocalRotation.w
       value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 39c011c0489a9924cad5bea81a59933e, type: 3}
---- !u!212 &1403528535 stripped
-SpriteRenderer:
-  m_CorrespondingSourceObject: {fileID: 194208982355805236, guid: 39c011c0489a9924cad5bea81a59933e, type: 3}
+--- !u!4 &1443416784 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 2902766480878450370, guid: 39c011c0489a9924cad5bea81a59933e, type: 3}
   m_PrefabInstance: {fileID: 1403528534}
   m_PrefabAsset: {fileID: 0}
 --- !u!4 &1403528536 stripped
@@ -6095,11 +6081,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!4 &1925147730 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 302865016553511662, guid: 39c011c0489a9924cad5bea81a59933e, type: 3}
-  m_PrefabInstance: {fileID: 1403528534}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1925950369
 GameObject:
   m_ObjectHideFlags: 0
@@ -6147,6 +6128,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b38b7aef939d4cf49b16ccacb86a0350, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  colors: {fileID: 11400000, guid: 47c9304370c276d428967803e54470aa, type: 2}
   branchPrefab: {fileID: 4252530465144108715, guid: 23b40079200104049a5b61fad667f3ac, type: 3}
   numberOfBranchesPairs: 30
   numberOfFlowerPairs: 10

@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 328072264887972315}
   - component: {fileID: 2564087660807611857}
+  - component: {fileID: 4676060699285858928}
   m_Layer: 0
   m_Name: Visual Flower
   m_TagString: Untagged
@@ -84,6 +85,20 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &4676060699285858928
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 921593282343922800}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f71c7bf0c14a194da38ffc2740f3835, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sprites: []
+  redrawInterval: 0.2
 --- !u!1 &4372609533001981271
 GameObject:
   m_ObjectHideFlags: 0
@@ -94,6 +109,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5668357954772826197}
   - component: {fileID: 6469454746107720793}
+  - component: {fileID: 1153940493511626763}
   m_Layer: 0
   m_Name: Visual Stem
   m_TagString: Untagged
@@ -168,6 +184,20 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &1153940493511626763
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4372609533001981271}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f71c7bf0c14a194da38ffc2740f3835, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sprites: []
+  redrawInterval: 0.2
 --- !u!1 &4446035841911728825
 GameObject:
   m_ObjectHideFlags: 0
