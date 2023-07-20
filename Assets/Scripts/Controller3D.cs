@@ -6,7 +6,7 @@ public class Controller3D : RaycastController
 {
     [SerializeField] private float horizontalSpeed; // rotation
     [SerializeField] private float verticalSpeed;
-    [SerializeField] private TreeController tree;
+    [SerializeField] private GameObject rotator;
 
     public CollisionInfo collisions { get => collisionInfo; set => collisionInfo = value; }
     private CollisionInfo collisionInfo;
@@ -16,7 +16,7 @@ public class Controller3D : RaycastController
         base.Start();
     }
 
-    public void Move(Vector3 velocity)
+    public Vector3 Move(Vector3 velocity)
     {
         UpdateRaycastOrigins();
         collisionInfo.Reset();
@@ -32,7 +32,9 @@ public class Controller3D : RaycastController
 
         transform.Translate(new Vector3(0, velocity.y * verticalSpeed * Time.deltaTime, 0));
         // Rotar el arbol en el eje Y
-        tree.transform.Rotate(Vector3.up, velocity.x * horizontalSpeed * Time.deltaTime);
+        rotator.transform.Rotate(Vector3.up, velocity.x * horizontalSpeed * Time.deltaTime);
+
+        return velocity;
     }
 
     private void CalculateHorizontalCollisions(ref Vector3 velocity)

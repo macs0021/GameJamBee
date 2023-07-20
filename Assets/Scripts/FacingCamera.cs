@@ -13,18 +13,17 @@ public class FacingCamera : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        // Obtener la dirección hacia la cámara sin tener en cuenta la rotación en los ejes Y y Z
+        // Obtener la dirección hacia la cámara
         Vector3 lookDirection = Camera.main.transform.position - transform.position;
-        lookDirection.y = 0f;
-        lookDirection.z = 0f;
+        lookDirection.y = 0f;  // No tener en cuenta la altura
 
         if (lookDirection == Vector3.zero) return;
 
-        // Calcular la rotación deseada hacia la cámara en el eje X
+        // Calcular la rotación deseada hacia la cámara en el eje Y
         Quaternion targetRotation = Quaternion.LookRotation(lookDirection, Vector3.up);
 
-        // Aplicar la rotación solo en el eje X
-        transform.rotation = Quaternion.Euler(targetRotation.eulerAngles.x, 0f, 0f);
+        // Aplicar la rotación solo en el eje Y
+        transform.rotation = Quaternion.Euler(0f, targetRotation.eulerAngles.y, 0f);
 
     }
 }

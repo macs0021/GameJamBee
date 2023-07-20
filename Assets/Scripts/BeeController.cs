@@ -16,6 +16,7 @@ public class BeeController : MonoBehaviour
     [SerializeField] private float maxWaitTimeToBlink = 5.0f;
     [SerializeField] private Transform eyesTransform;
     [SerializeField] private ParticleSystem droppingPolen;
+    [SerializeField] private GameObject trailObject;
     private Tweener blinkTween;
 
     private Tweener beeTween;
@@ -46,7 +47,20 @@ public class BeeController : MonoBehaviour
     private void Update()
     {
         ProcessInput();
-        controller.Move(velocity);
+        Vector3 newVelocity = controller.Move(velocity);
+
+        // Calcula el desplazamiento en función de la velocidad y el tiempo transcurrido
+        Vector3 displacement = newVelocity * Time.deltaTime;
+
+        // Calcula la nueva posición del objeto objetivo
+        Vector3 targetPosition = transform.position + displacement;
+
+        // Calcula la posición a la que se debe mover el objeto del trail solo en el eje Y
+        Vector3 trailPosition = trailObject.transform.position;
+        trailPosition.y = targetPosition.y;
+
+        // Actualiza la posición del objeto del trail solo en el eje Y
+        trailObject.transform.position = trailPosition;
 
         HandleBoingAnimation();
     }
