@@ -123,51 +123,6 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
---- !u!1 &71961080
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 71961081}
-  - component: {fileID: 71961082}
-  m_Layer: 0
-  m_Name: LeafGenerator
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &71961081
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 71961080}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.5, z: -0.1}
-  m_LocalScale: {x: 0.02, y: 0.02, z: 0.02}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 1564719420}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &71961082
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 71961080}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6195c644a17b03d4fb51d9ea3cb211de, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Leaf: {fileID: 4135968187953174811, guid: bfbe8cd21af782e4b908e4aadd3eaab2, type: 3}
 --- !u!1 &247640546
 GameObject:
   m_ObjectHideFlags: 0
@@ -262,6 +217,11 @@ Transform:
   m_Father: {fileID: 975857851}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 17.745, y: -1.129, z: 10.084}
+--- !u!4 &325030598 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 2430058235954211968, guid: 821736669ede7b9488557ebcc8ed6694, type: 3}
+  m_PrefabInstance: {fileID: 2430058235706719814}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -906,7 +866,7 @@ GameObject:
   - component: {fileID: 1564719423}
   - component: {fileID: 1564719422}
   - component: {fileID: 1564719421}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Top
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -925,7 +885,7 @@ Transform:
   m_LocalScale: {x: 50, y: 50, z: 50}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 71961081}
+  - {fileID: 325030598}
   m_Father: {fileID: 1925950370}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1229,7 +1189,7 @@ GameObject:
   - component: {fileID: 1840209560}
   - component: {fileID: 1840209559}
   - component: {fileID: 1840209558}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Floor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1427,6 +1387,63 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 911791183619257354, guid: 39c011c0489a9924cad5bea81a59933e, type: 3}
   m_PrefabInstance: {fileID: 1403528534}
   m_PrefabAsset: {fileID: 0}
+--- !u!1001 &2430058235706719814
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 1564719420}
+    m_Modifications:
+    - target: {fileID: 2430058235954211968, guid: 821736669ede7b9488557ebcc8ed6694, type: 3}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2430058235954211968, guid: 821736669ede7b9488557ebcc8ed6694, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2430058235954211968, guid: 821736669ede7b9488557ebcc8ed6694, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2430058235954211968, guid: 821736669ede7b9488557ebcc8ed6694, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2430058235954211968, guid: 821736669ede7b9488557ebcc8ed6694, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2430058235954211968, guid: 821736669ede7b9488557ebcc8ed6694, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2430058235954211968, guid: 821736669ede7b9488557ebcc8ed6694, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2430058235954211968, guid: 821736669ede7b9488557ebcc8ed6694, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2430058235954211968, guid: 821736669ede7b9488557ebcc8ed6694, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2430058235954211968, guid: 821736669ede7b9488557ebcc8ed6694, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2430058235954211968, guid: 821736669ede7b9488557ebcc8ed6694, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2430058235954211971, guid: 821736669ede7b9488557ebcc8ed6694, type: 3}
+      propertyPath: m_Name
+      value: Leaf Particles
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 821736669ede7b9488557ebcc8ed6694, type: 3}
 --- !u!1001 &4252530463633594812
 PrefabInstance:
   m_ObjectHideFlags: 0

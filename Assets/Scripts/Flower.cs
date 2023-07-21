@@ -7,15 +7,19 @@ public class Flower: MonoBehaviour
 {
     [Header("Data")]
     [SerializeField] private FlowerListSO flowerList;
+    [SerializeField] private List<Sprite> leafSprites;
 
     [Header("Sprite Renderers")]
     [SerializeField] private SpriteRenderer flowerSprite;
     [SerializeField] private SpriteRenderer stemSprite;
 
     [Header("Animation")]
-    [SerializeField] private float pairedAnimationTime = 1;
-    [SerializeField] private float timeBeforeScale = 1;
-    [SerializeField] private ParticleSystem particles;
+    [SerializeField] private float scaleTweenTime;
+    [SerializeField] private float waitBeforeScale;
+
+    [Header("Particles")]
+    [SerializeField] private ParticleSystem flowerParticles;
+    [SerializeField] private ParticleSystem leafParticles;
 
     private bool isPaired = false;
 
@@ -41,19 +45,26 @@ public class Flower: MonoBehaviour
 
     public bool IsPaired { get => isPaired; set => isPaired = value; }
 
-    public void pairedAnimation()
+    public void InitPairedAnimation()
     {
-        var mainModule = particles.main;
+        var mainModule = flowerParticles.main;
         mainModule.startColor = new ParticleSystem.MinMaxGradient(this.GetColor());
-        particles.Play();
+
+        // Setting random leaf sprite
+        var textureSheet = leafParticles.textureSheetAnimation;
+        textureSheet.SetSprite(0, leafSprites[Random.Range(0, leafSprites.Count)]);
+
+        flowerParticles.Play();
+        leafParticles.Play();
+
         StartCoroutine(WaitAndScale());
     }
 
     IEnumerator WaitAndScale()
     {
         // Espera a que termine el sistema de partículas
-        yield return new WaitForSeconds(timeBeforeScale);
+        yield return new WaitForSeconds(waitBeforeScale);
         // Luego ejecuta la animación de escala
-        transform.DOScale(new Vector3(0, 0, 0), pairedAnimationTime);
+        transform.DOScale(new Vector3(0, 0, 0), scaleTweenTime).SetEase(Ease.InOutSine);
     }
 }
