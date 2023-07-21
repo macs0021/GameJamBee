@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using DG.Tweening;
 
 public class Flower: MonoBehaviour
 {
@@ -10,6 +11,9 @@ public class Flower: MonoBehaviour
     [Header("Sprite Renderers")]
     [SerializeField] private SpriteRenderer flowerSprite;
     [SerializeField] private SpriteRenderer stemSprite;
+
+    [Header("Animation")]
+    [SerializeField] private float pairedAnimationTime = 1;
 
     private bool isPaired = false;
 
@@ -34,4 +38,9 @@ public class Flower: MonoBehaviour
     }
 
     public bool IsPaired { get => isPaired; set => isPaired = value; }
+
+    public void pairedAnimation()
+    {
+        transform.DOScale(new Vector3(0, 0, 0), pairedAnimationTime);
+    }
 }
