@@ -46,6 +46,7 @@ public class TreeController : MonoBehaviour
 
                 // Crear una nueva instancia de la rama
                 GameObject newBranch = Instantiate(branchPrefab, transform.position + branchPosition, Quaternion.identity);
+                newBranch.GetComponent<BranchController>().RandomizeScale();
                 branchList.Add(newBranch);
                 branchIndex++;
                 newBranch.transform.parent = this.gameObject.transform;
