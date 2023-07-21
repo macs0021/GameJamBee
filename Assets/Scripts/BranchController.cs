@@ -13,4 +13,14 @@ public class BranchController : MonoBehaviour
         Flower flower = flowerObj.GetComponent<Flower>();
         flower.SetColor(newColor);
     }
+
+    public bool flowerIsPaired()
+    {
+        return flowerObj.GetComponent<Flower>().IsPaired;
+    }
+
+    public void disableFlower()
+    {
+        flowerObj.SetActive(false);
+    }
 }
