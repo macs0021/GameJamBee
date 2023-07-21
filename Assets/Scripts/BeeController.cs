@@ -162,8 +162,8 @@ public class BeeController : MonoBehaviour
             {
                 collectedFlower.IsPaired = true;
                 flower.IsPaired = true;
-                collectedFlower.pairedAnimation();
-                flower.pairedAnimation();
+                collectedFlower.InitPairedAnimation();
+                flower.InitPairedAnimation();
                 collectedFlower = null;
                 droppingPolen.Stop();
 
