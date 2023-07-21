@@ -59,7 +59,7 @@ public class TreeController : MonoBehaviour
             }
         }
 
-        GameObject[] branches = branchList.ToArray(); // Convertir la lista en un arreglo
+        branches = branchList.ToArray(); // Convertir la lista en un arreglo
 
         //DisableRandomObjects(branches, numberOfBranchesPairs);
         ColorPairs(branches, numberOfFlowerPairs);
@@ -138,6 +138,33 @@ public class TreeController : MonoBehaviour
             // Aplicar este color a los dos objetos del par actual
             objects[activeIndices[i]].GetComponent<BranchController>().ChangeFlowerType(newColor);
             objects[activeIndices[i + 1]].GetComponent<BranchController>().ChangeFlowerType(newColor);
+        }
+    }
+    public void DestroyBranches()
+    {
+        for (int i = 0; i < branches.Length; i++)
+        {
+            Destroy(branches[i].gameObject);
+        }
+
+    }
+
+    public void checkComplete()
+    {
+        bool completed = true;
+        for (int i = 0; i < branches.Length; i++)
+        {
+            BranchController bc = branches[i].GetComponent<BranchController>();
+            if (bc.flowerObj.activeSelf && !bc.flowerIsPaired())
+            {
+                completed = false;
+            }
+        }
+        if (completed)
+        {
+            DestroyBranches();
+            colors.clearUsed();
+            GenerateBranches(11);
         }
     }
 
