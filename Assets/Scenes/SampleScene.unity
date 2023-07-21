@@ -526,11 +526,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 85885423766de264a98d84847056e738, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  targetObject: {fileID: 2035707426}
-  orbitSpeed: 20
-  distance: 30
-  height: 2
-  virtualCamera: {fileID: 0}
+  targetCharacter: {fileID: 2035707426}
 --- !u!1 &1161219332
 GameObject:
   m_ObjectHideFlags: 0
