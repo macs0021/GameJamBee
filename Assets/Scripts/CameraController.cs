@@ -1,22 +1,32 @@
 using UnityEngine;
+using Cinemachine;
 
 public class CameraController : MonoBehaviour
 {
-    public Transform target; // Objeto a seguir
-    public float distance = 5.0f; // Distancia desde el objeto
-    public float height = 3.0f; // Altura de la cámara
-    public float rotationSpeed = 10.0f; // Velocidad de rotación
+    public Transform targetCharacter; // El personaje que la cámara debe seguir en el eje Y
 
-    private void LateUpdate()
+    private CinemachineVirtualCamera virtualCamera; // Referencia a la cámara virtual de Cinemachine
+
+    private void Start()
     {
-        // Calcula la posición deseada de la cámara en función del objeto
-        Vector3 desiredPosition = target.position - (Quaternion.Euler(0, transform.eulerAngles.y, 0) * Vector3.forward) * distance;
-        desiredPosition.y = target.position.y + height;
+        // Obtener la referencia a la cámara virtual de Cinemachine
+        virtualCamera = GetComponent<CinemachineVirtualCamera>();
+        if (virtualCamera == null)
+        {
+            Debug.LogError("No se encontró el componente CinemachineVirtualCamera en la cámara.");
+            return;
+        }
+    }
 
-        // Interpola suavemente hacia la posición deseada
-        transform.position = Vector3.Lerp(transform.position, desiredPosition, rotationSpeed * Time.deltaTime);
+    private void Update()
+    {
+        if (targetCharacter != null && virtualCamera != null)
+        {
+            // Mantener la posición de la cámara solo en el eje Y
+            Vector3 desiredPosition = new Vector3(virtualCamera.transform.position.x, targetCharacter.position.y, virtualCamera.transform.position.z);
 
-        // Mira hacia el objeto
-        transform.LookAt(target);
+            // Asignar la nueva posición de la cámara para seguir al personaje en el eje Y
+            virtualCamera.transform.position = desiredPosition;
+        }
     }
 }
