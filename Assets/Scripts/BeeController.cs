@@ -128,7 +128,7 @@ public class BeeController : MonoBehaviour
         }
     }
 
-    void StartWinkAnimationLoop()
+    private void StartWinkAnimationLoop()
     {
         float randomWaitTime = UnityEngine.Random.Range(minWaitTimeToBlink, maxWaitTimeToBlink);
         eyesTransform.DOScaleY(0.1f, 0.2f)
@@ -138,6 +138,14 @@ public class BeeController : MonoBehaviour
             {
                 DOVirtual.DelayedCall(randomWaitTime, StartWinkAnimationLoop);
             });
+    }
+
+    private void StartPolenParticles(Color color)
+    {
+        var mainModule = droppingPolen.main;
+        mainModule.startColor = new ParticleSystem.MinMaxGradient(color);
+
+        droppingPolen.Play();
     }
 
     private void OnTriggerEnter(Collider other)
@@ -152,22 +160,28 @@ public class BeeController : MonoBehaviour
                 collectedFlower = flower;
                 bellySprite.enabled = true;
                 bellySprite.color = flower.GetColor();
-                droppingPolen.Play();
-                var mainModule = droppingPolen.main;
-                mainModule.startColor = new ParticleSystem.MinMaxGradient(flower.GetColor());
-                //droppingPolen.Emit(1);
+                bellySprite.transform.localScale = Vector3.zero;
+
+                bellySprite.transform.DOScale(Vector3.one, 0.3f).SetEase(Ease.InOutSine);
+
+                flower.StartPickedAnimation();
+
+                StartPolenParticles(bellySprite.color);
             }
             // Remove belly sprite
             if (bellySprite.color == flower.GetColor() && flower.gameObject != collectedFlower.gameObject)
             {
                 collectedFlower.IsPaired = true;
                 flower.IsPaired = true;
-                collectedFlower.InitPairedAnimation();
-                flower.InitPairedAnimation();
+
+                collectedFlower.StartPairedAnimation();
+                flower.StartPairedAnimation();
+
                 collectedFlower = null;
                 droppingPolen.Stop();
 
-                bellySprite.enabled = false;
+                bellySprite.transform.DOScale(Vector3.zero, 0.3f).SetEase(Ease.InOutSine)
+                    .OnComplete(() => bellySprite.enabled = false);
             }
         }
     }

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
 
-public class Flower: MonoBehaviour
+public class Flower : MonoBehaviour
 {
     [Header("Data")]
     [SerializeField] private FlowerListSO flowerList;
@@ -45,7 +45,13 @@ public class Flower: MonoBehaviour
 
     public bool IsPaired { get => isPaired; set => isPaired = value; }
 
-    public void InitPairedAnimation()
+    // this animation makes the flower you already picked up easier to distinguish
+    public void StartPickedAnimation()
+    {
+        transform.DOPunchScale(Vector3.one / 3, scaleTweenTime, 2, 0.3f).SetEase(Ease.InOutSine);
+    }
+
+    public void StartPairedAnimation()
     {
         var mainModule = flowerParticles.main;
         mainModule.startColor = new ParticleSystem.MinMaxGradient(this.GetColor());
@@ -65,6 +71,7 @@ public class Flower: MonoBehaviour
         // Espera a que termine el sistema de partículas
         yield return new WaitForSeconds(waitBeforeScale);
         // Luego ejecuta la animación de escala
-        transform.DOScale(new Vector3(0, 0, 0), scaleTweenTime).SetEase(Ease.InOutSine);
+        transform.DOScale(new Vector3(1.3f, 1.3f, 1.3f), 0.15f).SetEase(Ease.InOutSine)
+            .OnComplete(() => transform.DOScale(new Vector3(0, 0, 0), scaleTweenTime).SetEase(Ease.InOutSine));
     }
 }
