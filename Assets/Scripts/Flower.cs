@@ -14,6 +14,8 @@ public class Flower: MonoBehaviour
 
     [Header("Animation")]
     [SerializeField] private float pairedAnimationTime = 1;
+    [SerializeField] private float timeBeforeScale = 1;
+    [SerializeField] private ParticleSystem particles;
 
     private bool isPaired = false;
 
@@ -41,6 +43,17 @@ public class Flower: MonoBehaviour
 
     public void pairedAnimation()
     {
+        var mainModule = particles.main;
+        mainModule.startColor = new ParticleSystem.MinMaxGradient(this.GetColor());
+        particles.Play();
+        StartCoroutine(WaitAndScale());
+    }
+
+    IEnumerator WaitAndScale()
+    {
+        // Espera a que termine el sistema de partículas
+        yield return new WaitForSeconds(timeBeforeScale);
+        // Luego ejecuta la animación de escala
         transform.DOScale(new Vector3(0, 0, 0), pairedAnimationTime);
     }
 }
