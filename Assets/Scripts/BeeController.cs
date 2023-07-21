@@ -7,6 +7,7 @@ public class BeeController : MonoBehaviour
 {
     [Header("Movement")]
     [SerializeField] private float smoothMovement;
+    [SerializeField] private float maxRotateAngle = 45f;
     private Vector2 velocity;
     private float velXSmoothing, velYSmoothing;
     private bool canFlipMovement;
@@ -17,16 +18,14 @@ public class BeeController : MonoBehaviour
     [SerializeField] private Transform eyesTransform;
     [SerializeField] private ParticleSystem droppingPolen;
     [SerializeField] private GameObject trailObject;
-    private Tweener blinkTween;
 
     private Tweener beeTween;
     private Tweener boingTween;
+    private Tweener rotateBeeTween;
     [SerializeField] private Transform visualWrapperTransform;
     [SerializeField] private Transform visualTransform;
 
     private bool isTweening;
-    private Tweener leftWingTween;
-    private Tweener rightWingTween;
     [SerializeField] private Transform leftWingTransform;
     [SerializeField] private Transform rightWingTransform;
 
@@ -49,25 +48,14 @@ public class BeeController : MonoBehaviour
         ProcessInput();
         Vector3 newVelocity = controller.Move(velocity);
 
-        // Calcula el desplazamiento en función de la velocidad y el tiempo transcurrido
-        Vector3 displacement = newVelocity * Time.deltaTime;
-
-        // Calcula la nueva posición del objeto objetivo
-        Vector3 targetPosition = transform.position + displacement;
-
-        // Calcula la posición a la que se debe mover el objeto del trail solo en el eje Y
-        Vector3 trailPosition = trailObject.transform.position;
-        trailPosition.y = targetPosition.y;
-
-        // Actualiza la posición del objeto del trail solo en el eje Y
-        trailObject.transform.position = trailPosition;
-
         HandleBoingAnimation();
     }
 
     private void ProcessInput()
     {
         Vector2 input = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical")).normalized;
+
+        RotateBee(input.y);
 
         if (canFlipMovement)
         {
@@ -90,9 +78,20 @@ public class BeeController : MonoBehaviour
         if (beeTween == null)
         {
             canFlipMovement = false;
-            beeTween = visualTransform.DOScaleX(scaleX, 0.5f).SetEase(Ease.InOutSine)
+            beeTween = visualWrapperTransform.DOScaleX(scaleX, 0.5f).SetEase(Ease.InOutSine)
                 .OnKill(() => { canFlipMovement = true; beeTween = null; });
         }
+    }
+
+    private void RotateBee(float input)
+    {
+        if (rotateBeeTween != null && rotateBeeTween.IsActive())
+        {
+            rotateBeeTween.Kill();
+        }
+
+        rotateBeeTween = visualTransform
+            .DOLocalRotate(new Vector3(0f, 0f, input * maxRotateAngle), 0.5f);
     }
 
     private void HandleBoingAnimation()
@@ -102,7 +101,7 @@ public class BeeController : MonoBehaviour
         if (hasCollisions && boingTween == null)
         {
             // boing boing en x
-            boingTween = visualWrapperTransform.DOScale(0.9f, 0.2f)
+            boingTween = visualTransform.DOScale(0.9f, 0.2f)
             .SetEase(Ease.OutBack)
             .SetLoops(2, LoopType.Yoyo);
         }
@@ -119,11 +118,11 @@ public class BeeController : MonoBehaviour
         {
             isTweening = true;
 
-            leftWingTween = leftWingTransform.DOScaleY(-1, 0.3f).SetEase(Ease.InOutSine).SetLoops(-1, LoopType.Yoyo)
+            leftWingTransform.DOScaleY(-1, 0.3f).SetEase(Ease.InOutSine).SetLoops(-1, LoopType.Yoyo)
             .OnKill(() => leftWingTransform.DOScaleY(1, 0.1f).SetEase(Ease.Linear)
             .OnComplete(() => isTweening = false));
 
-            rightWingTween = rightWingTransform.DOScaleY(-1, 0.3f).SetEase(Ease.InOutSine).SetLoops(-1, LoopType.Yoyo)
+            rightWingTransform.DOScaleY(-1, 0.3f).SetEase(Ease.InOutSine).SetLoops(-1, LoopType.Yoyo)
                 .OnKill(() => rightWingTransform.DOScaleY(1, 0.1f).SetEase(Ease.Linear)
                 .OnComplete(() => isTweening = false));
         }
@@ -132,7 +131,7 @@ public class BeeController : MonoBehaviour
     void StartWinkAnimationLoop()
     {
         float randomWaitTime = UnityEngine.Random.Range(minWaitTimeToBlink, maxWaitTimeToBlink);
-        blinkTween = eyesTransform.DOScaleY(0.1f, 0.2f)
+        eyesTransform.DOScaleY(0.1f, 0.2f)
             .SetEase(Ease.InOutSine)
             .SetLoops(2, LoopType.Yoyo)
             .OnComplete(() =>

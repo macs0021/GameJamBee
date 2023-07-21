@@ -18,14 +18,17 @@ public class RaycastController : MonoBehaviour
     protected float horizontalRaySpacing;
     protected float verticalRaySpacing;
 
+    private Quaternion initialRotation;
+
     protected RaycastOrigins raycastOrigins;
-    
+
     protected virtual void Start()
     {
         // Avoid wiggling
         Physics.autoSyncTransforms = true;
         col = GetComponent<BoxCollider>();
         CalculateRaySpacing();
+        initialRotation = transform.rotation;
     }
 
     protected void UpdateRaycastOrigins()
@@ -37,25 +40,28 @@ public class RaycastController : MonoBehaviour
         Vector3 center = bounds.center;
         Vector3 extents = bounds.extents;
 
+        Vector3 localRight = transform.TransformDirection(Vector3.right);
+        Vector3 localUp = transform.TransformDirection(Vector3.up);
+
         // Puntos para la cara TOP
-        Vector3 topCenter = center + Vector3.up * extents.y;
-        raycastOrigins.topCenterLeft = topCenter - Vector3.right * extents.x;
-        raycastOrigins.topCenterRight = topCenter + Vector3.right * extents.x;
+        Vector3 topCenter = center + localUp * extents.y;
+        raycastOrigins.topCenterLeft = (topCenter - localRight * extents.x);
+        raycastOrigins.topCenterRight = (topCenter + localRight * extents.x);
 
         // Puntos para la cara RIGHT
-        Vector3 rightCenter = center + Vector3.right * extents.x;
-        raycastOrigins.rightCenterUp = rightCenter + Vector3.up * extents.y;
-        raycastOrigins.rightCenterDown = rightCenter - Vector3.up * extents.y;
+        Vector3 rightCenter = center + localRight * extents.x;
+        raycastOrigins.rightCenterUp = (rightCenter + localUp * extents.y);
+        raycastOrigins.rightCenterDown = (rightCenter - localUp * extents.y);
 
         // Puntos para la cara BOTTOM
-        Vector3 bottomCenter = center - Vector3.up * extents.y;
-        raycastOrigins.bottomCenterLeft = bottomCenter - Vector3.right * extents.x;
-        raycastOrigins.bottomCenterRight = bottomCenter + Vector3.right * extents.x;
+        Vector3 bottomCenter = center - localUp * extents.y;
+        raycastOrigins.bottomCenterLeft = (bottomCenter - localRight * extents.x);
+        raycastOrigins.bottomCenterRight = (bottomCenter + localRight * extents.x);
 
         // Puntos para la cara LEFT
-        Vector3 leftCenter = center - Vector3.right * extents.x;
-        raycastOrigins.leftCenterUp = leftCenter + Vector3.up * extents.y;
-        raycastOrigins.leftCenterDown = leftCenter - Vector3.up * extents.y;
+        Vector3 leftCenter = center - localRight * extents.x;
+        raycastOrigins.leftCenterUp = (leftCenter + localUp * extents.y);
+        raycastOrigins.leftCenterDown = (leftCenter - localUp * extents.y);
     }
 
     private void CalculateRaySpacing()
