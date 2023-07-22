@@ -66,7 +66,7 @@ public class BeeController : MonoBehaviour
     private void Update()
     {
         ProcessInput();
-        Vector3 newVelocity = controller.Move(velocity);
+        controller.Move(velocity);
 
         HandleBoingAnimation();
     }
