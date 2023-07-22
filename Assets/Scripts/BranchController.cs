@@ -20,7 +20,7 @@ public class BranchController : MonoBehaviour
     {
         foreach (GameObject obj in objects)
         {
-            float randomScale = Random.Range(0.8f, 1.2f);
+            float randomScale = Random.Range(1f, 1.3f);
             Vector3 originalScale = obj.transform.localScale;
             Vector3 newScale = originalScale * randomScale;
             obj.transform.localScale = newScale;
