@@ -16,7 +16,7 @@ public class Controller3D : RaycastController
         base.Start();
     }
 
-    public Vector3 Move(Vector3 velocity)
+    public void Move(Vector3 velocity)
     {
         UpdateRaycastOrigins();
         collisionInfo.Reset();
@@ -33,8 +33,6 @@ public class Controller3D : RaycastController
         transform.Translate(new Vector3(0, velocity.y * verticalSpeed * Time.deltaTime, 0));
         // Rotar el arbol en el eje Y
         rotator.transform.Rotate(Vector3.up, velocity.x * horizontalSpeed * Time.deltaTime);
-
-        return velocity;
     }
 
     private void CalculateHorizontalCollisions(ref Vector3 velocity)
