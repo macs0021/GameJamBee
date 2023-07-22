@@ -40,6 +40,12 @@ public class BeeController : MonoBehaviour
     [SerializeField] private SpriteRenderer bellySprite;
     private Flower collectedFlower;
     private bool canPickUpFlower;
+    [SerializeField] TutorialController tutorialController;
+
+    bool movementTutorial = false;
+    bool pickupTutorial = false;
+    bool collisionTutorial = false;
+    bool pairedTutorial = false;
 
     private Controller3D controller;
 
@@ -68,6 +74,11 @@ public class BeeController : MonoBehaviour
     private void ProcessInput()
     {
         Vector2 input = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical")).normalized;
+
+        if (input != Vector2.zero && !movementTutorial)
+        {
+            movementTutorial = tutorialController.NextTutorial();
+        }
 
         RotateBee(input.y);
 
@@ -116,6 +127,10 @@ public class BeeController : MonoBehaviour
 
         if (hasCollisions && boingTween == null)
         {
+            if (!collisionTutorial && movementTutorial && pickupTutorial)
+            {
+                collisionTutorial = tutorialController.NextTutorial();
+            }
             // Cant pick up flower
             canPickUpFlower = false;
             float duration = 0.4f;
@@ -213,7 +228,10 @@ public class BeeController : MonoBehaviour
             if (!bellySprite.enabled && canPickUpFlower /* flag to avoid animation bugs */)
             {
                 canPickUpFlower = false; // while we pick up pollen, cant get hurt
-
+                if (!pickupTutorial && movementTutorial)
+                {
+                    pickupTutorial = tutorialController.NextTutorial();
+                }
                 collectedFlower = flower;
                 bellySprite.enabled = true;
                 bellySprite.color = flower.GetColor();
@@ -230,6 +248,14 @@ public class BeeController : MonoBehaviour
             {
                 collectedFlower.IsPaired = true;
                 flower.IsPaired = true;
+                if (!pairedTutorial && movementTutorial && pickupTutorial && collisionTutorial)
+                {
+                    pairedTutorial = tutorialController.NextTutorial();
+                    if (pairedTutorial)
+                    {
+                        Invoke("endTutorial", 5f);
+                    }
+                }
 
                 collectedFlower.StartPairedAnimation();
                 flower.StartPairedAnimation();
@@ -241,5 +267,9 @@ public class BeeController : MonoBehaviour
                     .OnComplete(() => bellySprite.enabled = false);
             }
         }
+    }
+    private void endTutorial()
+    {
+        tutorialController.endTutorial();
     }
 }
