@@ -15,7 +15,14 @@ public class BeeController : MonoBehaviour
     [Header("VFX")]
     [SerializeField] private float minWaitTimeToBlink = 1.0f;
     [SerializeField] private float maxWaitTimeToBlink = 5.0f;
+
     [SerializeField] private Transform eyesTransform;
+    [SerializeField] private Transform visualEyesTransform;
+
+    [SerializeField] private Transform dizzyEyesTransform;
+    [SerializeField] private Transform leftDizzyEyeTransform;
+    [SerializeField] private Transform rightDizzyEyeTransform;
+
     [SerializeField] private ParticleSystem droppingPolen;
     [SerializeField] private GameObject trailObject;
 
@@ -41,6 +48,9 @@ public class BeeController : MonoBehaviour
         StartWingAnimation();
         StartWinkAnimationLoop();
         droppingPolen.Stop();
+
+        leftDizzyEyeTransform.gameObject.SetActive(false);
+        rightDizzyEyeTransform.gameObject.SetActive(false);
     }
 
     private void Update()
@@ -96,14 +106,31 @@ public class BeeController : MonoBehaviour
 
     private void HandleBoingAnimation()
     {
-        bool hasCollisions = (controller.collisions.left || controller.collisions.right || controller.collisions.up || controller.collisions.down);
+        bool hasCollisions = (controller.collisions.left || 
+            controller.collisions.right || 
+            controller.collisions.up /* || controller.collisions.down */);
 
         if (hasCollisions && boingTween == null)
         {
-            // boing boing en x
-            boingTween = visualTransform.DOScale(0.9f, 0.2f)
-            .SetEase(Ease.OutBack)
-            .SetLoops(2, LoopType.Yoyo);
+            float duration = 0.4f;
+            boingTween = visualTransform.DOShakeScale(duration, 0.6f);
+
+            visualEyesTransform.gameObject.SetActive(false);
+            leftDizzyEyeTransform.gameObject.SetActive(true);
+            rightDizzyEyeTransform.gameObject.SetActive(true);
+
+            dizzyEyesTransform.DOPunchScale(Vector3.one / 3, duration, 3, 0.4f);
+
+            leftDizzyEyeTransform.DORotate(new Vector3(0, 0, 360), duration, RotateMode.FastBeyond360)
+                .OnComplete(() => leftDizzyEyeTransform.gameObject.SetActive(false));
+            rightDizzyEyeTransform.DORotate(new Vector3(0, 0, 360), duration, RotateMode.FastBeyond360)
+                .OnComplete(() =>
+                {
+                    rightDizzyEyeTransform.gameObject.SetActive(false);
+                    visualEyesTransform.gameObject.SetActive(true);
+                });
+
+            RemovePollen();
         }
 
         if (!hasCollisions && boingTween != null && !boingTween.active)
@@ -140,6 +167,16 @@ public class BeeController : MonoBehaviour
             });
     }
 
+    private void RemovePollen()
+    {
+        droppingPolen.Stop();
+
+        collectedFlower.StopPickedAnimation();
+
+        bellySprite.transform.DOScale(Vector3.zero, 0.3f).SetEase(Ease.InOutSine)
+            .OnComplete(() => bellySprite.enabled = false);
+
+    }
     private void StartPolenParticles(Color color)
     {
         var mainModule = droppingPolen.main;
@@ -165,7 +202,6 @@ public class BeeController : MonoBehaviour
                 bellySprite.transform.DOScale(Vector3.one, 0.3f).SetEase(Ease.InOutSine);
 
                 flower.StartPickedAnimation();
-
                 StartPolenParticles(bellySprite.color);
             }
             // Remove belly sprite

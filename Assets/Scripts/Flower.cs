@@ -26,6 +26,7 @@ public class Flower : MonoBehaviour
     [SerializeField] private ParticleSystem pickedLeafParticles;
 
     private bool isPaired = false;
+    public bool IsPaired { get => isPaired; set => isPaired = value; }
 
     private void Awake()
     {
@@ -56,7 +57,6 @@ public class Flower : MonoBehaviour
         flowerModule.startColor = new ParticleSystem.MinMaxGradient(this.GetColor());
     }
 
-    public bool IsPaired { get => isPaired; set => isPaired = value; }
 
     // this animation makes the flower you already picked up easier to distinguish
     public void StartPickedAnimation()
@@ -81,7 +81,7 @@ public class Flower : MonoBehaviour
         pulseSequence.OnKill(() => transform.localScale = Vector3.one);
     }
 
-    private void StopPickedAnimation()
+    public void StopPickedAnimation()
     {
         if(pulseSequence != null)
         {
