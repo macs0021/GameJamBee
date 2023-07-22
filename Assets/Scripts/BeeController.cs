@@ -171,7 +171,10 @@ public class BeeController : MonoBehaviour
     {
         droppingPolen.Stop();
 
-        collectedFlower.StopPickedAnimation();
+        if (collectedFlower)
+        {
+            collectedFlower.StopPickedAnimation();
+        }
 
         bellySprite.transform.DOScale(Vector3.zero, 0.3f).SetEase(Ease.InOutSine)
             .OnComplete(() => bellySprite.enabled = false);
