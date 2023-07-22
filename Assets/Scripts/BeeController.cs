@@ -38,12 +38,16 @@ public class BeeController : MonoBehaviour
 
     [Header("Misc")]
     [SerializeField] private SpriteRenderer bellySprite;
-    private Controller3D controller;
     private Flower collectedFlower;
+    private bool canPickUpFlower;
+
+    private Controller3D controller;
 
     private void Awake()
     {
         canFlipMovement = true;
+        canPickUpFlower = true;
+
         controller = GetComponent<Controller3D>();
         StartWingAnimation();
         StartWinkAnimationLoop();
@@ -106,12 +110,14 @@ public class BeeController : MonoBehaviour
 
     private void HandleBoingAnimation()
     {
-        bool hasCollisions = (controller.collisions.left || 
-            controller.collisions.right || 
+        bool hasCollisions = (controller.collisions.left ||
+            controller.collisions.right ||
             controller.collisions.up /* || controller.collisions.down */);
 
         if (hasCollisions && boingTween == null)
         {
+            // Cant pick up flower
+            canPickUpFlower = false;
             float duration = 0.4f;
             boingTween = visualTransform.DOShakeScale(duration, 0.6f);
 
@@ -119,18 +125,24 @@ public class BeeController : MonoBehaviour
             leftDizzyEyeTransform.gameObject.SetActive(true);
             rightDizzyEyeTransform.gameObject.SetActive(true);
 
-            dizzyEyesTransform.DOPunchScale(Vector3.one / 3, duration, 3, 0.4f);
+            leftDizzyEyeTransform.DORotate(new Vector3(0, 0, 360), duration, RotateMode.FastBeyond360);
+            rightDizzyEyeTransform.DORotate(new Vector3(0, 0, 360), duration, RotateMode.FastBeyond360);
 
-            leftDizzyEyeTransform.DORotate(new Vector3(0, 0, 360), duration, RotateMode.FastBeyond360)
-                .OnComplete(() => leftDizzyEyeTransform.gameObject.SetActive(false));
-            rightDizzyEyeTransform.DORotate(new Vector3(0, 0, 360), duration, RotateMode.FastBeyond360)
-                .OnComplete(() =>
-                {
-                    rightDizzyEyeTransform.gameObject.SetActive(false);
-                    visualEyesTransform.gameObject.SetActive(true);
-                });
+            Sequence dizzyEyes = DOTween.Sequence();
+            dizzyEyes.Append(dizzyEyesTransform.DOPunchScale(Vector3.one / 3, duration, 3, 0.4f));
+            dizzyEyes.Append(dizzyEyesTransform.DOScaleY(0.1f, 0.2f).SetEase(Ease.InOutSine));
+            dizzyEyes.OnComplete(() =>
+            {
+                dizzyEyesTransform.localScale = Vector3.one;
+                leftDizzyEyeTransform.gameObject.SetActive(false);
+                rightDizzyEyeTransform.gameObject.SetActive(false);
 
-            RemovePollen();
+                visualEyesTransform.gameObject.SetActive(true);
+                visualEyesTransform.localScale = new Vector3(1.0f, 0.1f, 1.0f);
+                visualEyesTransform.DOScaleY(1.0f, 0.2f);
+            });
+
+            RemovePollen(); // here it resets
         }
 
         if (!hasCollisions && boingTween != null && !boingTween.active)
@@ -177,8 +189,11 @@ public class BeeController : MonoBehaviour
         }
 
         bellySprite.transform.DOScale(Vector3.zero, 0.3f).SetEase(Ease.InOutSine)
-            .OnComplete(() => bellySprite.enabled = false);
-
+            .OnComplete(() =>
+            {
+                bellySprite.enabled = false;
+                canPickUpFlower = true; // reset to pick up flowers
+            });
     }
     private void StartPolenParticles(Color color)
     {
@@ -195,14 +210,17 @@ public class BeeController : MonoBehaviour
             !flower.IsPaired)
         {
             // Picked up pollen
-            if (!bellySprite.enabled)
+            if (!bellySprite.enabled && canPickUpFlower /* flag to avoid animation bugs */)
             {
+                canPickUpFlower = false; // while we pick up pollen, cant get hurt
+
                 collectedFlower = flower;
                 bellySprite.enabled = true;
                 bellySprite.color = flower.GetColor();
                 bellySprite.transform.localScale = Vector3.zero;
 
-                bellySprite.transform.DOScale(Vector3.one, 0.3f).SetEase(Ease.InOutSine);
+                bellySprite.transform.DOScale(Vector3.one, 0.3f).SetEase(Ease.InOutSine)
+                    .OnComplete(() => canPickUpFlower = true);
 
                 flower.StartPickedAnimation();
                 StartPolenParticles(bellySprite.color);
