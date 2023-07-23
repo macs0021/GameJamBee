@@ -270,6 +270,6 @@ public class BeeController : MonoBehaviour
     }
     private void endTutorial()
     {
-        tutorialController.endTutorial();
+        tutorialController.EndTutorial();
     }
 }

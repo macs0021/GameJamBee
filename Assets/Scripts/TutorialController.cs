@@ -107,7 +107,7 @@ public class TutorialController : MonoBehaviour
         }
         else
         {
-            endTutorial();
+            EndTutorial();
         }
     }
 
@@ -134,7 +134,7 @@ public class TutorialController : MonoBehaviour
         canContinue = true;
     }
 
-    public void endTutorial()
+    public void EndTutorial()
     {
         rectTransform.DOAnchorPos(new Vector2(startPositionX, rectTransform.anchoredPosition.y), 1.0f);
     }
@@ -145,7 +145,7 @@ public class TutorialController : MonoBehaviour
 
         rectTransform.DOAnchorPos(new Vector2(startPositionX, rectTransform.anchoredPosition.y), 1.0f);
 
-        yield return new WaitForSeconds(1.0f);
+        yield return new WaitForSeconds(1.2f); // 0.2f more
 
         currentFrameText = 0;
         currentFrame++;
