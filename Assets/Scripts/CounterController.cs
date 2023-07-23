@@ -1,21 +1,25 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
+using DG.Tweening;
 using TMPro;
 
 public class CounterController : MonoBehaviour
 {
-    public TextMeshProUGUI countdownText; // referencia a tu componente TextMeshProUGUI
-    public int countdownTime; // tiempo inicial en segundos
+    [SerializeField] private RectTransform countdownRect;
+    [SerializeField] private TextMeshProUGUI countdownText; 
+    [SerializeField] private int countdownTime;
 
-    void Start()
+    private float countdownFinalPosX;
+
+    private void Awake()
     {
-        //StartCoroutine(StartCountdown());
+        countdownFinalPosX = countdownRect.anchoredPosition.x;
+        countdownRect.anchoredPosition = new Vector2(countdownFinalPosX + 200.0f, countdownRect.anchoredPosition.y);
     }
 
-    public void startCountDown()
+    public void StartTimer()
     {
+        countdownRect.DOAnchorPosX(countdownFinalPosX, 0.5f).SetEase(Ease.InOutSine);
         StartCoroutine(StartCountdown());
     }
 
@@ -35,6 +39,6 @@ public class CounterController : MonoBehaviour
         }
 
         // puedes añadir aquí lo que quieras que suceda cuando el contador llegue a cero
-        countdownText.text = "00:00";
+        countdownText.text = "End!";
     }
 }

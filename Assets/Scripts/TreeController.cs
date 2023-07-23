@@ -153,21 +153,18 @@ public class TreeController : MonoBehaviour
 
     public void CheckGameCompleted()
     {
-        bool completed = true;
-        for (int i = 0; i < branches.Length; i++)
+        foreach (GameObject branch in branches)
         {
-            BranchController bc = branches[i].GetComponent<BranchController>();
-            if (bc.flowerObj.activeSelf && !bc.flowerIsPaired())
+            BranchController controller = branch.GetComponent<BranchController>();
+            if (!controller.IsFlowerPaired())
             {
-                completed = false;
+                return;
             }
         }
-        if (completed)
-        {
-            DestroyBranches();
-            colors.ClearUsedColors();
-            GenerateBranches(11);
-        }
+
+        DestroyBranches();
+        colors.ClearUsedColors();
+        GenerateBranches(11);
     }
 
 }

@@ -276,7 +276,7 @@ public class BeeController : MonoBehaviour
     private void endTutorial()
     {
         tutorialController.EndTutorial();
-        countDown.startCountDown();
+        countDown.StartTimer();
         
     }
 }

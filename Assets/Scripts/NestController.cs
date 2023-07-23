@@ -4,20 +4,13 @@ using UnityEngine;
 
 public class NestController : MonoBehaviour
 {
-    [SerializeField] TreeController tree;
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    [SerializeField] private TreeController tree;
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
     private void OnTriggerEnter(Collider other)
     {
-        tree.CheckGameCompleted();
+        if (other.CompareTag("Player"))
+        {
+            tree.CheckGameCompleted();
+        }
     }
 }
