@@ -15,6 +15,7 @@ public class TreeController : MonoBehaviour
     GameObject[] branches;
 
     [Header("Misc")]
+    [SerializeField] private BeeController bee;
     [SerializeField] private GameObject endPanel;
     [SerializeField] private TextMeshProUGUI endPanelText;
     [SerializeField] private CounterController counter;
@@ -169,6 +170,7 @@ public class TreeController : MonoBehaviour
             }
         }
 
+        bee.CanMove = true;
         endPanel.SetActive(true);
         endPanelText.text = "You won!";
         counter.StopTimer();
