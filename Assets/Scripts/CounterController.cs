@@ -9,18 +9,35 @@ public class CounterController : MonoBehaviour
     [SerializeField] private TextMeshProUGUI countdownText; 
     [SerializeField] private int countdownTime;
 
+    [SerializeField] private GameObject losePanel;
+    [SerializeField] private TextMeshProUGUI text;
+    [SerializeField] private BeeController bee;
+
+    private bool countdownActive;
     private float countdownFinalPosX;
 
     private void Awake()
     {
+        losePanel.SetActive(false);
+
+        countdownActive = false;
         countdownFinalPosX = countdownRect.anchoredPosition.x;
         countdownRect.anchoredPosition = new Vector2(countdownFinalPosX + 200.0f, countdownRect.anchoredPosition.y);
     }
 
     public void StartTimer()
     {
-        countdownRect.DOAnchorPosX(countdownFinalPosX, 0.5f).SetEase(Ease.InOutSine);
-        StartCoroutine(StartCountdown());
+        if (!countdownActive)
+        {
+            countdownActive = true;
+            countdownRect.DOAnchorPosX(countdownFinalPosX, 0.5f).SetEase(Ease.InOutSine);
+            StartCoroutine(StartCountdown());
+        }
+    }
+
+    public void StopTimer()
+    {
+        StopAllCoroutines();
     }
 
     IEnumerator StartCountdown()
@@ -39,6 +56,9 @@ public class CounterController : MonoBehaviour
         }
 
         // puedes añadir aquí lo que quieras que suceda cuando el contador llegue a cero
+        losePanel.SetActive(true);
+        text.text = "Oh no... The bee didn't polinize all the flowers in time";
+        bee.CanMove = false;
         countdownText.text = "End!";
     }
 }

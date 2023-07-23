@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class TreeController : MonoBehaviour
 {
@@ -12,6 +13,11 @@ public class TreeController : MonoBehaviour
     public int numberOfBranchesPairs = 1;
     public int numberOfFlowerPairs = 2;
     GameObject[] branches;
+
+    [Header("Misc")]
+    [SerializeField] private GameObject endPanel;
+    [SerializeField] private TextMeshProUGUI endPanelText;
+    [SerializeField] private CounterController counter;
 
     private void Start()
     {
@@ -156,15 +162,16 @@ public class TreeController : MonoBehaviour
         foreach (GameObject branch in branches)
         {
             BranchController controller = branch.GetComponent<BranchController>();
-            if (!controller.IsFlowerPaired())
+            if (controller.HasFlower() && !controller.IsFlowerPaired())
             {
+                Debug.Log(controller);
                 return;
             }
         }
 
-        DestroyBranches();
-        colors.ClearUsedColors();
-        GenerateBranches(11);
+        endPanel.SetActive(true);
+        endPanelText.text = "You won!";
+        counter.StopTimer();
     }
 
 }

@@ -66,7 +66,11 @@ public class TutorialController : MonoBehaviour
         currentFrame = 0;
         currentFrameText = 0;
 
-        Invoke("StartCurrentFrame", 1f);
+        if (PlayerPrefs.GetInt("Tutorial") != 1)
+        {
+            PlayerPrefs.SetInt("Tutorial", 1);
+            Invoke("StartCurrentFrame", 1f);
+        }
     }
 
     public bool NextTutorial()

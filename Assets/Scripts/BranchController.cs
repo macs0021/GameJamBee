@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class BranchController : MonoBehaviour
@@ -15,7 +13,7 @@ public class BranchController : MonoBehaviour
     {
         RandomizeScale();
         RotateLeafsRandomly();
-       
+
     }
     private void RandomizeScale()
     {
@@ -51,8 +49,13 @@ public class BranchController : MonoBehaviour
         flower.SetColor(newColor);
     }
 
+    public bool HasFlower()
+    {
+        return flower.gameObject.activeSelf;
+    }
+
     public bool IsFlowerPaired()
     {
-        return flower.GetComponent<Flower>().IsPaired;
+        return flower.IsPaired;
     }
 }

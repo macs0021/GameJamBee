@@ -44,6 +44,11 @@ public class SceneController : PersistentSingleton<SceneController>
         StartCoroutine(LoadAsyncScene(sceneIndex, waitTime));
     }
 
+    public void LoadMenu()
+    {
+        LoadScene(SceneType.MENU);
+    }
+
     IEnumerator LoadAsyncScene(int sceneIndex, float waitTime)
     {
         yield return new WaitForSeconds(waitTime);

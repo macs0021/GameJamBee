@@ -43,13 +43,18 @@ public class BeeController : MonoBehaviour
     private bool canPickUpFlower;
     [SerializeField] TutorialController tutorialController;
     [SerializeField] CounterController countDown;
+    [SerializeField] private TreeController tree;
 
     bool movementTutorial = false;
     bool pickupTutorial = false;
     bool collisionTutorial = false;
     bool pairedTutorial = false;
 
+    private bool canMove = true;
+
     private Controller3D controller;
+
+    public bool CanMove { get => canMove; set => canMove = value; }
 
     private void Awake()
     {
@@ -67,19 +72,27 @@ public class BeeController : MonoBehaviour
 
     private void Update()
     {
-        ProcessInput();
-        controller.Move(velocity);
+        if (canMove)
+        {
+            ProcessInput();
+            controller.Move(velocity);
 
-        HandleBoingAnimation();
+            HandleBoingAnimation();
+        }
     }
 
     private void ProcessInput()
     {
         Vector2 input = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical")).normalized;
 
-        if (input != Vector2.zero && !movementTutorial)
+        if (input != Vector2.zero && !movementTutorial && PlayerPrefs.GetInt("Tutorial") != 1)
         {
             movementTutorial = tutorialController.NextTutorial();
+        }
+
+        if (input != Vector2.zero && PlayerPrefs.GetInt("Tutorial") == 1)
+        {
+            countDown.StartTimer();
         }
 
         RotateBee(input.y);
@@ -129,7 +142,7 @@ public class BeeController : MonoBehaviour
 
         if (hasCollisions && boingTween == null)
         {
-            if (!collisionTutorial && movementTutorial && pickupTutorial)
+            if (!collisionTutorial && movementTutorial && pickupTutorial && PlayerPrefs.GetInt("Tutorial") != 1)
             {
                 collisionTutorial = tutorialController.NextTutorial();
             }
@@ -233,7 +246,7 @@ public class BeeController : MonoBehaviour
             if (!bellySprite.enabled && canPickUpFlower /* flag to avoid animation bugs */)
             {
                 canPickUpFlower = false; // while we pick up pollen, cant get hurt
-                if (!pickupTutorial && movementTutorial)
+                if (!pickupTutorial && movementTutorial && PlayerPrefs.GetInt("Tutorial") != 1)
                 {
                     pickupTutorial = tutorialController.NextTutorial();
                 }
@@ -253,12 +266,12 @@ public class BeeController : MonoBehaviour
             {
                 collectedFlower.IsPaired = true;
                 flower.IsPaired = true;
-                if (!pairedTutorial && movementTutorial && pickupTutorial && collisionTutorial)
+                if (!pairedTutorial && movementTutorial && pickupTutorial && collisionTutorial && PlayerPrefs.GetInt("Tutorial") != 1)
                 {
                     pairedTutorial = tutorialController.NextTutorial();
                     if (pairedTutorial)
                     {
-                        Invoke("endTutorial", 7f);
+                        Invoke("EndTutorial", 7f);
                     }
                 }
 
@@ -272,11 +285,15 @@ public class BeeController : MonoBehaviour
                     .OnComplete(() => bellySprite.enabled = false);
             }
         }
+
+        if(other.CompareTag("Honeycomb"))
+        {
+            tree.CheckGameCompleted();
+        }
     }
-    private void endTutorial()
+    private void EndTutorial()
     {
         tutorialController.EndTutorial();
         countDown.StartTimer();
-        
     }
 }
