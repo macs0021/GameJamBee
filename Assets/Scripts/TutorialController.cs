@@ -56,6 +56,16 @@ public class TutorialController : MonoBehaviour
         {
             Destroy(gameObject);
         }*/
+
+        if (PlayerPrefs.GetInt("Tutorial") != 1)
+        {
+            PlayerPrefs.SetInt("Tutorial", 1);
+            Invoke("StartCurrentFrame", 1f);
+        }
+        else
+        {
+            this.gameObject.SetActive(false);
+        }
     }
 
     void Start()
@@ -65,12 +75,6 @@ public class TutorialController : MonoBehaviour
         canContinue = false;
         currentFrame = 0;
         currentFrameText = 0;
-
-        if (PlayerPrefs.GetInt("Tutorial") != 1)
-        {
-            PlayerPrefs.SetInt("Tutorial", 1);
-            Invoke("StartCurrentFrame", 1f);
-        }
     }
 
     public bool NextTutorial()

@@ -34,6 +34,8 @@ public class SceneController : PersistentSingleton<SceneController>
         switch (scene)
         {
             case SceneType.MENU:
+                AudioController.Instance.Stop("Song");
+                AudioController.Instance.Stop("Ambient");
                 sceneIndex = 0;
                 break;
             case SceneType.GAME:
@@ -49,12 +51,17 @@ public class SceneController : PersistentSingleton<SceneController>
         LoadScene(SceneType.MENU);
     }
 
+    public void LoadGame()
+    {
+        LoadScene(SceneType.GAME);
+    }
+
     IEnumerator LoadAsyncScene(int sceneIndex, float waitTime)
     {
         yield return new WaitForSeconds(waitTime);
 
         transition.SetTrigger("Start");
-        //AudioController.Instance.Play("Transition");
+        AudioController.Instance.Play("Transition");
 
         yield return new WaitForSeconds(1f);
 

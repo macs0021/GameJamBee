@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using DG.Tweening;
 using TMPro;
 
 public class TreeController : MonoBehaviour
@@ -15,6 +16,7 @@ public class TreeController : MonoBehaviour
     GameObject[] branches;
 
     [Header("Misc")]
+    [SerializeField] private BeeController bee;
     [SerializeField] private GameObject endPanel;
     [SerializeField] private TextMeshProUGUI endPanelText;
     [SerializeField] private CounterController counter;
@@ -164,13 +166,14 @@ public class TreeController : MonoBehaviour
             BranchController controller = branch.GetComponent<BranchController>();
             if (controller.HasFlower() && !controller.IsFlowerPaired())
             {
-                Debug.Log(controller);
                 return;
             }
         }
 
+        bee.CanMove = false;
         endPanel.SetActive(true);
-        endPanelText.text = "You won!";
+        endPanel.GetComponent<RectTransform>().DOAnchorPosY(0, 0.8f).SetEase(Ease.InOutSine);
+        endPanelText.text = "All the flowers are polinized. You brough back sustaina-bee-lity to the honeycomb!";
         counter.StopTimer();
     }
 

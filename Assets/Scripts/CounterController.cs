@@ -56,7 +56,9 @@ public class CounterController : MonoBehaviour
         }
 
         // puedes añadir aquí lo que quieras que suceda cuando el contador llegue a cero
+        AudioController.Instance.Play("Lose");
         losePanel.SetActive(true);
+        losePanel.GetComponent<RectTransform>().DOAnchorPosY(0, 0.8f).SetEase(Ease.InOutSine);
         text.text = "Oh no... The bee didn't polinize all the flowers in time";
         bee.CanMove = false;
         countdownText.text = "End!";

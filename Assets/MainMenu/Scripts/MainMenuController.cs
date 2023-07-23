@@ -67,18 +67,19 @@ public class MainMenuController : MonoBehaviour
 
     public void Play()
     {
+        AudioController.Instance.Play("Click");
         SceneController.Instance.LoadScene(SceneController.SceneType.GAME);
     }
 
     public void Exit()
     {
-        //AudioController.Instance.Play("Button");
+        AudioController.Instance.Play("Click");
         Application.Quit();
     }
 
     public void Help()
     {
-        //AudioController.Instance.Play("HelpButton");
+        AudioController.Instance.Play("Click");
         mainMenu.DOAnchorPos(new Vector2(mainMenu.anchoredPosition.x, mainMenuEndYPosition), 0.8f)
             .SetEase(Ease.InOutSine);
 
@@ -88,7 +89,7 @@ public class MainMenuController : MonoBehaviour
 
     public void Back()
     {
-        //AudioController.Instance.Play("HelpButton");
+        AudioController.Instance.Play("Click");
         helpMenu.DOAnchorPos(new Vector2(helpMenu.anchoredPosition.x, helpMenuEndYPosition), 0.8f)
             .SetEase(Ease.InOutSine);
 

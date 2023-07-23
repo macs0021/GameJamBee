@@ -33,4 +33,14 @@ public class AudioController : PersistentSingleton<AudioController>
 
         sound.Source.Play();
     }
+
+    public void Stop(string name)
+    {
+        Sound sound = Array.Find(sounds, (s) => s.Name == name);
+
+        if (sound == null)
+            return;
+
+        sound.Source.Stop();
+    }
 }
