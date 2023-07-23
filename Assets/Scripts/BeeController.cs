@@ -42,6 +42,7 @@ public class BeeController : MonoBehaviour
     private Flower collectedFlower;
     private bool canPickUpFlower;
     [SerializeField] TutorialController tutorialController;
+    [SerializeField] CounterController countDown;
 
     bool movementTutorial = false;
     bool pickupTutorial = false;
@@ -257,7 +258,7 @@ public class BeeController : MonoBehaviour
                     pairedTutorial = tutorialController.NextTutorial();
                     if (pairedTutorial)
                     {
-                        Invoke("endTutorial", 5f);
+                        Invoke("endTutorial", 7f);
                     }
                 }
 
@@ -275,5 +276,7 @@ public class BeeController : MonoBehaviour
     private void endTutorial()
     {
         tutorialController.EndTutorial();
+        countDown.startCountDown();
+        
     }
 }
