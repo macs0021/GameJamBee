@@ -69,7 +69,6 @@ public class BeeController : MonoBehaviour
         leftDizzyEyeTransform.gameObject.SetActive(false);
         rightDizzyEyeTransform.gameObject.SetActive(false);
 
-        AudioController.Instance.Play("Song");
         AudioController.Instance.Play("Ambient");
     }
 

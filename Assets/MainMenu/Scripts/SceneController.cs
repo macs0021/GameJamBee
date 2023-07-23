@@ -34,7 +34,6 @@ public class SceneController : PersistentSingleton<SceneController>
         switch (scene)
         {
             case SceneType.MENU:
-                AudioController.Instance.Stop("Song");
                 AudioController.Instance.Stop("Ambient");
                 sceneIndex = 0;
                 break;

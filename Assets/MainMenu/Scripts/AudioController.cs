@@ -21,7 +21,7 @@ public class AudioController : PersistentSingleton<AudioController>
             sound.Source.loop = sound.Loop;
         }
 
-        Play("Main");
+        Play("Song");
     }
 
     public void Play(string name)
