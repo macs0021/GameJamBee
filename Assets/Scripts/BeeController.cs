@@ -68,6 +68,9 @@ public class BeeController : MonoBehaviour
 
         leftDizzyEyeTransform.gameObject.SetActive(false);
         rightDizzyEyeTransform.gameObject.SetActive(false);
+
+        AudioController.Instance.Play("Song");
+        AudioController.Instance.Play("Ambient");
     }
 
     private void Update()
@@ -85,12 +88,12 @@ public class BeeController : MonoBehaviour
     {
         Vector2 input = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical")).normalized;
 
-        if (input != Vector2.zero && !movementTutorial && PlayerPrefs.GetInt("Tutorial") != 1)
+        if (input != Vector2.zero && !movementTutorial)
         {
             movementTutorial = tutorialController.NextTutorial();
         }
 
-        if (input != Vector2.zero && PlayerPrefs.GetInt("Tutorial") == 1)
+        if (input != Vector2.zero && PlayerPrefs.GetInt("Tutorial") == 1 && !tutorialController.gameObject.activeSelf)
         {
             countDown.StartTimer();
         }
@@ -142,7 +145,7 @@ public class BeeController : MonoBehaviour
 
         if (hasCollisions && boingTween == null)
         {
-            if (!collisionTutorial && movementTutorial && pickupTutorial && PlayerPrefs.GetInt("Tutorial") != 1)
+            if (!collisionTutorial && movementTutorial && pickupTutorial)
             {
                 collisionTutorial = tutorialController.NextTutorial();
             }
@@ -150,6 +153,9 @@ public class BeeController : MonoBehaviour
             // Cant pick up flower
             canPickUpFlower = false;
             float duration = 0.4f;
+
+            int randomAudio = Random.Range(1, 4);
+            AudioController.Instance.Play("Collide" + randomAudio);
 
             screenShake.ShakeCamera(0.6f, duration / 2);
             boingTween = visualTransform.DOShakeScale(duration, 0.6f);
@@ -245,8 +251,10 @@ public class BeeController : MonoBehaviour
             // Picked up pollen
             if (!bellySprite.enabled && canPickUpFlower /* flag to avoid animation bugs */)
             {
+                AudioController.Instance.Play("Pickup");
+
                 canPickUpFlower = false; // while we pick up pollen, cant get hurt
-                if (!pickupTutorial && movementTutorial && PlayerPrefs.GetInt("Tutorial") != 1)
+                if (!pickupTutorial && movementTutorial)
                 {
                     pickupTutorial = tutorialController.NextTutorial();
                 }
@@ -264,9 +272,11 @@ public class BeeController : MonoBehaviour
             // Remove belly sprite
             if (bellySprite.color == flower.GetColor() && flower.gameObject != collectedFlower.gameObject)
             {
+                AudioController.Instance.Play("Pair");
+
                 collectedFlower.IsPaired = true;
                 flower.IsPaired = true;
-                if (!pairedTutorial && movementTutorial && pickupTutorial && collisionTutorial && PlayerPrefs.GetInt("Tutorial") != 1)
+                if (!pairedTutorial && movementTutorial && pickupTutorial && collisionTutorial)
                 {
                     pairedTutorial = tutorialController.NextTutorial();
                     if (pairedTutorial)
