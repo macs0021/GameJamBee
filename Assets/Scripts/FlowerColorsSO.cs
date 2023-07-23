@@ -30,7 +30,8 @@ public class FlowerColorsSO : ScriptableObject
 
         return randomColor;
     }
-    public void clearUsed()
+
+    public void ClearUsedColors()
     {
         usedColors.Clear();
     }

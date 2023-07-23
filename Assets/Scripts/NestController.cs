@@ -18,6 +18,6 @@ public class NestController : MonoBehaviour
     }
     private void OnTriggerEnter(Collider other)
     {
-        tree.checkComplete();
+        tree.CheckGameCompleted();
     }
 }

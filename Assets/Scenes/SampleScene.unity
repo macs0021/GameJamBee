@@ -949,6 +949,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1015452316}
+  - component: {fileID: 1015452319}
   - component: {fileID: 1015452315}
   - component: {fileID: 1015452317}
   - component: {fileID: 1015452318}
@@ -1043,6 +1044,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   targetCharacter: {fileID: 2035707426}
+--- !u!114 &1015452319
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1015452314}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fa4a45232b8bd44488dcfb8fd198f653, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  shakeNoiseProfile: {fileID: 11400000, guid: 69ce8388f6785dd4c8c39915efece2f4, type: 2}
 --- !u!1 &1095482674
 GameObject:
   m_ObjectHideFlags: 0
@@ -1565,6 +1579,10 @@ PrefabInstance:
       value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 911791183619257349, guid: 39c011c0489a9924cad5bea81a59933e, type: 3}
+      propertyPath: screenShake
+      value: 
+      objectReference: {fileID: 1015452319}
+    - target: {fileID: 911791183619257349, guid: 39c011c0489a9924cad5bea81a59933e, type: 3}
       propertyPath: trailObject
       value: 
       objectReference: {fileID: 892940225}
@@ -1818,21 +1836,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tutorialFrames:
-  - name: Movimiento
+  - name: Movement
     textList:
-    - Pulsa WASD para moverte
-  - name: Recoger polen
+    - Use WASD, arrow keys or joystick to move
+  - name: Pick pollen
     textList:
-    - Pasa por una flor para recoger su polen
-  - name: Soltar polen
+    - Move near a flower to pick up its pollen
+  - name: Lose pollen
     textList:
-    - "Si chocas contra una rama perder\xE1s el polen"
-  - name: Emparejar flores
+    - If you hit a branch, you'll lose the pollen
+  - name: Pair flowers
     textList:
-    - Lleva el polen de una planta hasta su pareja del mismo color
-  - name: Emparejar completo y panal
+    - Bring the picked pollen to the flower with the same color
+  - name: Pair all and come back
     textList:
-    - Poliniza todas las parejas y vuelve al panal
+    - Polinize all the flowers and return to the honeycomb
   tutorialText: {fileID: 486035176}
   endPositionX: 0
   timePerCharacter: 0.05
@@ -2061,8 +2079,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_NoiseProfile: {fileID: 11400000, guid: 46965f9cbaf525742a6da4c2172a99cd, type: 2}
   m_PivotOffset: {x: 0, y: 0, z: 0}
-  m_AmplitudeGain: 0.8
-  m_FrequencyGain: 1
+  m_AmplitudeGain: 0.6
+  m_FrequencyGain: 0.8
   mNoiseOffsets: {x: 0, y: 0, z: 0}
 --- !u!1 &1679414391
 GameObject:

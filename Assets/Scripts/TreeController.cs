@@ -15,6 +15,7 @@ public class TreeController : MonoBehaviour
 
     private void Start()
     {
+        colors.ClearUsedColors();
         GenerateBranches(11);
     }
 
@@ -150,7 +151,7 @@ public class TreeController : MonoBehaviour
 
     }
 
-    public void checkComplete()
+    public void CheckGameCompleted()
     {
         bool completed = true;
         for (int i = 0; i < branches.Length; i++)
@@ -164,7 +165,7 @@ public class TreeController : MonoBehaviour
         if (completed)
         {
             DestroyBranches();
-            colors.clearUsed();
+            colors.ClearUsedColors();
             GenerateBranches(11);
         }
     }

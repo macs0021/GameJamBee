@@ -37,6 +37,7 @@ public class BeeController : MonoBehaviour
     [SerializeField] private Transform rightWingTransform;
 
     [Header("Misc")]
+    [SerializeField] private ScreenShake screenShake;
     [SerializeField] private SpriteRenderer bellySprite;
     private Flower collectedFlower;
     private bool canPickUpFlower;
@@ -131,9 +132,12 @@ public class BeeController : MonoBehaviour
             {
                 collisionTutorial = tutorialController.NextTutorial();
             }
+
             // Cant pick up flower
             canPickUpFlower = false;
             float duration = 0.4f;
+
+            screenShake.ShakeCamera(0.6f, duration / 2);
             boingTween = visualTransform.DOShakeScale(duration, 0.6f);
 
             visualEyesTransform.gameObject.SetActive(false);
